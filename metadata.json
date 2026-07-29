@@ -1,0 +1,6 @@
+{
+  "name": "Quriv Technologies",
+  "description": "A cinematic dark-luxury interactive 3D web experience for Quriv Technologies featuring smooth camera architecture, glowing golden geometry, and high-performance WebGL animations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

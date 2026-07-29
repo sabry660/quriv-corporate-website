@@ -1,0 +1,145 @@
+{
+  "nav": {
+    "about": "About",
+    "technologies": "Technologies",
+    "process": "Process",
+    "industries": "Industries",
+    "gallery": "Gallery",
+    "partners": "Partners",
+    "team": "Team",
+    "locations": "Locations",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "bookMeeting": "Book Meeting",
+    "createAccount": "Create Account"
+  },
+  "hero": {
+    "eyebrow": "NEXT-GEN ENTERPRISE ARCHITECTURE",
+    "title": "Building Digital Solutions That",
+    "titleHighlight": "Grow Businesses",
+    "subtitle": "Quriv Technologies merges high-throughput software engineering, spatial 3D architecture, and autonomous cloud systems to power mission-critical operations for global industry leaders.",
+    "bookMeeting": "Book Meeting",
+    "exploreSolutions": "Explore Solutions"
+  },
+  "about": {
+    "title": "The Engineering Exhibit",
+    "subtitle": "Precision software architectures built for high-concurrency digital ecosystems.",
+    "introduction": "Quriv Technologies is an international software architecture engineering company based in Alexandria, Egypt. We engineer bespoke web applications, keyless guest portals, administrative dashboards, and scalable cloud infrastructures.",
+    "mission": "To replace generic digital templates with custom, high-performance software systems that drive operational efficiency and direct business revenue.",
+    "vision": "To serve as the global benchmark for luxury digital craftsmanship, web innovation, and resilient cloud architecture.",
+    "coreValues": "Core Values",
+    "timeline": "Company Timeline",
+    "achievements": "Achievements",
+    "whyQuriv": "Minimal & Purpose-Built Architecture",
+    "consultTeam": "Consult Architecture Team"
+  },
+  "technologies": {
+    "title": "Technologies & Architecture",
+    "subtitle": "Enterprise framework specifications, cloud engines, and blueprinted software architecture.",
+    "frameworkSpecs": "FRAMEWORK SPECIFICATIONS",
+    "systemBlueprint": "SYSTEM ARCHITECTURE BLUEPRINT",
+    "engineeringFlow": "ENGINEERING FLOW",
+    "developmentCenter": "DEVELOPMENT CONTROL CENTER",
+    "coreServices": "Core Services Suite",
+    "consultTeam": "Consult Architecture Team"
+  },
+  "process": {
+    "title": "Development Process",
+    "subtitle": "Our proven methodology for delivering enterprise-grade software solutions."
+  },
+  "industries": {
+    "title": "Industries We Serve",
+    "subtitle": "Specialized digital solutions for diverse business sectors.",
+    "hospitality": "Hospitality",
+    "ecommerce": "E-Commerce",
+    "food": "Food Industry",
+    "fintech": "FinTech"
+  },
+  "gallery": {
+    "title": "Work Gallery",
+    "subtitle": "Premium digital experiences crafted with precision."
+  },
+  "partners": {
+    "title": "Trusted Partners",
+    "subtitle": "Industry leaders we collaborate with."
+  },
+  "team": {
+    "title": "Meet Our Team",
+    "subtitle": "Expert engineers and designers building the future."
+  },
+  "locations": {
+    "title": "Our Locations",
+    "subtitle": "Global presence serving clients worldwide."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Common questions about our services and process."
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Let's build something great together.",
+    "fullName": "Full Name",
+    "company": "Company",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "sendMessage": "Send Message",
+    "responseTime": "< 2 Hours Guaranteed"
+  },
+  "footer": {
+    "tagline": "Enterprise Software Architecture & Digital Solutions",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "social": "Follow Us"
+  },
+  "forms": {
+    "bookMeeting": {
+      "title": "Book a Strategic Session",
+      "subtitle": "Connect directly with Quriv's lead software architects to review your technical requirements.",
+      "selectTopic": "Select Topic",
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "company": "Company Name",
+      "submit": "Book Session",
+      "topics": {
+        "enterprise": "Enterprise Cloud Architecture",
+        "spatial": "Spatial 3D & WebGL Systems",
+        "ai": "AI & Machine Learning Infrastructure",
+        "transformation": "Full-Stack Digital Transformation"
+      }
+    },
+    "createAccount": {
+      "title": "Initialize Account",
+      "subtitle": "Gain secure access to Quriv Cloud Console, API keys, system diagnostics, and project telemetry.",
+      "accessLevel": "Portal Access Level",
+      "fullName": "Full Name",
+      "company": "Organization Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create Account",
+      "tiers": {
+        "enterprise": "Enterprise",
+        "architect": "Architect",
+        "developer": "Developer"
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "readMore": "Read More",
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "language": "Language"
+  }
+}
