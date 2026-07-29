@@ -90,7 +90,10 @@
     "tagline": "Enterprise Software Architecture & Digital Solutions",
     "quickLinks": "Quick Links",
     "contact": "Contact",
-    "social": "Follow Us"
+    "social": "Follow Us",
+    "headOffice": "Head Office",
+    "connectOnOfficialChannels": "Connect on Official Channels",
+    "allRightsReserved": "All Rights Reserved"
   },
   "forms": {
     "bookMeeting": {
@@ -140,6 +143,10 @@
     "save": "Save",
     "delete": "Delete",
     "edit": "Edit",
-    "language": "Language"
+    "language": "Language",
+    "facebook": "Facebook",
+    "linkedin": "LinkedIn",
+    "whatsapp": "WhatsApp",
+    "email": "Email"
   }
 }
