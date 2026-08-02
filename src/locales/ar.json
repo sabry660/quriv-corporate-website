@@ -144,6 +144,12 @@
     "connectOnOfficialChannels": "تواصل عبر القنوات الرسمية",
     "allRightsReserved": "جميع الحقوق محفوظة"
   },
+  "social": {
+    "facebook": "فيسبوك",
+    "linkedin": "لينكد إن",
+    "whatsapp": "واتساب",
+    "email": "البريد الإلكتروني"
+  },
   "forms": {
     "bookMeeting": {
       "title": "حجز جلسة استراتيجية",

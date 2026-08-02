@@ -95,6 +95,12 @@
     "connectOnOfficialChannels": "Connect on Official Channels",
     "allRightsReserved": "All Rights Reserved"
   },
+  "social": {
+    "facebook": "Facebook",
+    "linkedin": "LinkedIn",
+    "whatsapp": "WhatsApp",
+    "email": "Email"
+  },
   "forms": {
     "bookMeeting": {
       "title": "Book a Strategic Session",
@@ -143,10 +149,6 @@
     "save": "Save",
     "delete": "Delete",
     "edit": "Edit",
-    "language": "Language",
-    "facebook": "Facebook",
-    "linkedin": "LinkedIn",
-    "whatsapp": "WhatsApp",
-    "email": "Email"
+    "language": "Language"
   }
 }

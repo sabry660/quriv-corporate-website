@@ -195,10 +195,10 @@ export const FooterShowcase: React.FC<FooterShowcaseProps> = ({
 
           <div className="flex items-center gap-3">
             {[
-              { name: t('common.facebook'), url: 'https://www.facebook.com/p/Quriv-Technologies-100093578880006/', icon: Facebook },
-              { name: t('common.linkedin'), url: 'https://www.linkedin.com/company/quriv-technologies', icon: Linkedin },
-              { name: t('common.whatsapp'), url: 'https://wa.me/201157502000', icon: MessageCircle },
-              { name: t('common.email'), url: 'mailto:ceo@quriv.com', icon: Mail },
+              { name: t('social.facebook'), url: 'https://www.facebook.com/p/Quriv-Technologies-100093578880006/', icon: Facebook },
+              { name: t('social.linkedin'), url: 'https://www.linkedin.com/company/quriv-technologies', icon: Linkedin },
+              { name: t('social.whatsapp'), url: 'https://wa.me/201157502000', icon: MessageCircle },
+              { name: t('social.email'), url: 'mailto:ceo@quriv.com', icon: Mail },
             ].map((social) => {
               const IconComp = social.icon;
               return (
