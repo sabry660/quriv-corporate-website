@@ -1,28 +1,30 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
+  Globe,
+  Shield,
+  Lock,
+  FileText,
+  ArrowRight,
+  ExternalLink,
+  Smartphone,
+  CheckCircle2,
+  Sparkles,
+  ChevronRight,
+  Clock,
+  Layers,
+  TrendingUp,
+  MessageSquare,
   Building2,
   UserCheck,
   LayoutDashboard,
-  BarChart3,
-  ShieldCheck,
-  FileText,
-  Megaphone,
   Search,
-  MapPin,
-  Calendar,
-  ArrowRight,
-  ChevronRight,
-  CheckCircle2,
-  Sparkles,
-  Lock,
-  LineChart,
-  FileSpreadsheet,
-  Globe,
-  KeyRound
+  BarChart3,
+  ShieldCheck
 } from 'lucide-react';
 import { soundManager } from '../utils/sound';
 import { useI18n } from '../utils/i18n';
+import { BeforeAfterSlider } from './BeforeAfterSlider';
 
 interface FintechSolutionsProps {
   onOpenBookMeeting: () => void;
@@ -35,7 +37,7 @@ export const FINTECH_DATA = {
   intro:
     'Quriv designs and engineers high-security, compliant financial technology platforms—from enterprise corporate websites and client portals to real-time administrative telemetry and automated regulatory reporting.',
 
-  /* 10 SPECIFIC SERVICES */
+  /* 8 EXCLUSIVE SERVICES */
   services: [
     {
       id: 'corporate-website',
@@ -50,6 +52,16 @@ export const FINTECH_DATA = {
         'Sub-100ms Global Edge Performance',
         'SOC-2 Compliant Architecture',
         'Regulatory Disclosures & Investor Relations Portals',
+      ],
+      previews: {
+        desktop: '/projects/fintech-website-desktop.jpg',
+        tablet: '/projects/fintech-website-tablet.jpg',
+        mobile: '/projects/fintech-website-mobile.jpg',
+      },
+      screenshots: [
+        '/projects/fintech-website-1.jpg',
+        '/projects/fintech-website-2.jpg',
+        '/projects/fintech-website-3.jpg',
       ],
     },
     {
@@ -66,6 +78,19 @@ export const FINTECH_DATA = {
         'Direct Advisor Communication Channel',
         'Custom Account Statement Generation',
       ],
+      features: [
+        'Portfolio Monitoring',
+        'Secure Document Upload',
+        'Transfer Requests',
+        'Advisor Messaging',
+        'Statement Downloads',
+        'Account Settings',
+      ],
+      screenshots: [
+        '/projects/fintech-portal-1.jpg',
+        '/projects/fintech-portal-2.jpg',
+        '/projects/fintech-portal-3.jpg',
+      ],
     },
     {
       id: 'dashboard',
@@ -81,10 +106,149 @@ export const FINTECH_DATA = {
         'Audit Logging & Activity Trails',
         'Transaction Approval Workflows',
       ],
+      modules: [
+        'Balance Overview',
+        'Transaction Monitoring',
+        'User Management',
+        'Compliance Reports',
+        'Risk Alerts',
+        'System Health',
+      ],
+      screenshots: [
+        '/projects/fintech-dashboard-1.jpg',
+        '/projects/fintech-dashboard-2.jpg',
+      ],
+    },
+    {
+      id: 'marketing',
+      number: '04',
+      title: 'Marketing Service',
+      tagline: 'Monthly Full-Service Digital Brand Management',
+      description:
+        'Dedicated monthly social media and digital marketing service crafted to elevate brand prestige and drive qualified client inquiries.',
+      icon: TrendingUp,
+      deliverables: [
+        '20 Posts / Month',
+        '10 Reels / Month',
+        'Influencer Communication',
+        'Industry Content',
+        'Paid Advertising',
+        'Community Management',
+        'DM Replies',
+        'Comment Management',
+        'Weekly Strategy Meetings',
+        'Bespoke Graphic Design',
+        'Weekly Performance Reports',
+      ],
+    },
+    {
+      id: 'seo',
+      number: '05',
+      title: 'SEO',
+      tagline: 'Search Engine Optimization for Financial Visibility',
+      description:
+        'We optimize financial websites for search engines to capture high-intent investors, rank for key financial searches, and consistently increase organic traffic.',
+      icon: Search,
+      focusAreas: [
+        'Technical SEO Audit',
+        'Content Strategy',
+        'Local SEO',
+        'Backlink Building',
+        'Performance Tracking',
+      ],
+    },
+    {
+      id: 'analytics',
+      number: '06',
+      title: 'Analytics & Reporting',
+      tagline: 'Consolidated Performance Telemetry',
+      description:
+        'Clear, unified reporting that brings all web, social, and conversion performance metrics into easy-to-read executive dashboards.',
+      icon: BarChart3,
+      coverage: [
+        'Website Performance',
+        'Social Media Insights',
+        'Traffic Sources',
+        'Conversions Tracking',
+        'Lead Generation',
+        'Campaign Performance',
+      ],
+    },
+    {
+      id: 'security',
+      number: '07',
+      title: 'Security & Compliance',
+      tagline: 'Enterprise-Grade Security Infrastructure',
+      description:
+        'Comprehensive security implementation including multi-factor authentication, encryption, penetration testing, and regulatory compliance frameworks.',
+      icon: ShieldCheck,
+      features: [
+        'Multi-Factor Authentication',
+        'End-to-End Encryption',
+        'Penetration Testing',
+        'SOC-2 Compliance',
+        'GDPR Compliance',
+        'Security Audits',
+      ],
+    },
+    {
+      id: 'monthly-consulting',
+      number: '08',
+      title: 'Monthly Consulting',
+      tagline: 'Dedicated Strategic Review Meetings',
+      description:
+        'Monthly review meetings with our technology and growth team to analyze performance, refine strategy, and map out future digital initiatives.',
+      icon: MessageSquare,
+      pillars: [
+        'Growth Strategy',
+        'Strategic Recommendations',
+        'Performance Reviews',
+        'Future Roadmap Planning',
+      ],
     },
   ],
 
-  /* PROJECT SHOWCASE PLACEHOLDERS */
+  /* BEFORE & AFTER COMPARISON */
+  beforeAfter: [
+    {
+      metricTitle: 'Client Onboarding & KYC',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Manual paper forms, in-person document verification, multi-day approval delays, and physical branch visits.',
+      afterLabel: 'digitallyTransformedPlatform',
+      afterText: 'Instant digital KYC verification, automated document scanning, sub-minute approvals, and fully remote onboarding.',
+      beforeImage: '/projects/fintech-before-1.jpg',
+      afterImage: '/projects/fintech-after-1.jpg',
+    },
+    {
+      metricTitle: 'Transaction Processing',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Manual batch processing, end-of-day settlement windows, delayed transaction confirmations, and manual reconciliation.',
+      afterLabel: 'digitallyTransformedPlatform',
+      afterText: 'Real-time transaction processing, instant settlement confirmations, automated reconciliation, and live ledger updates.',
+      beforeImage: '/projects/fintech-before-2.jpg',
+      afterImage: '/projects/fintech-after-2.jpg',
+    },
+    {
+      metricTitle: 'Account Security',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Password-only authentication, static security questions, vulnerable to phishing, and manual fraud detection.',
+      afterLabel: 'digitallyTransformedPlatform',
+      afterText: 'Multi-factor authentication, hardware passkeys, biometric verification, and AI-powered fraud detection.',
+      beforeImage: '/projects/fintech-before-3.jpg',
+      afterImage: '/projects/fintech-after-3.jpg',
+    },
+    {
+      metricTitle: 'Financial Reporting',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Manual spreadsheet compilation, delayed monthly reports, human calculation errors, and static PDF exports.',
+      afterLabel: 'digitallyTransformedPlatform',
+      afterText: 'Automated real-time reporting, instant dashboard analytics, error-free calculations, and dynamic export formats.',
+      beforeImage: '/projects/fintech-before-4.jpg',
+      afterImage: '/projects/fintech-after-4.jpg',
+    },
+  ],
+
+  /* PROJECT SHOWCASE */
   projects: [
     {
       id: 'fintech-proj-1',
@@ -93,9 +257,9 @@ export const FINTECH_DATA = {
       description:
         'Bank-grade digital portal featuring an encrypted customer dashboard, multi-factor passkey authentication, and automated quarterly statement exports.',
       servicesUsed: ['Corporate Website', 'Customer Portal', 'Secure Authentication', 'Reporting', 'Analytics'],
-      mainImagePlaceholder: 'Placeholder Institutional Portal',
-      dashboardPlaceholder: 'Placeholder Executive Dashboard',
-      securityPlaceholder: 'Placeholder Security Architecture',
+      mainImage: '/projects/fintech-portal-1.jpg',
+      dashboard: '/projects/fintech-dashboard-1.jpg',
+      security: '/projects/fintech-security-1.jpg',
     },
     {
       id: 'fintech-proj-2',
@@ -104,19 +268,16 @@ export const FINTECH_DATA = {
       description:
         'High-performance corporate website with integrated client portal, real-time portfolio telemetry, and compliant marketing acquisition funnels.',
       servicesUsed: ['Corporate Website', 'Dashboard', 'Analytics', 'Marketing', 'Monthly Consulting'],
-      mainImagePlaceholder: 'Placeholder Institutional Portal',
-      dashboardPlaceholder: 'Placeholder Executive Dashboard',
-      securityPlaceholder: 'Placeholder Security Architecture',
+      mainImage: '/projects/fintech-portal-2.jpg',
+      dashboard: '/projects/fintech-dashboard-2.jpg',
+      security: '/projects/fintech-security-2.jpg',
     },
   ],
 };
 
-export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
-  onOpenBookMeeting,
-  onBack,
-}) => {
-  const { t } = useI18n();
-  const [activeTab, setActiveTab] = useState<'overview' | 'services' | 'previews' | 'showcase'>('overview');
+export const FintechSolutions: React.FC<FintechSolutionsProps> = ({ onOpenBookMeeting, onBack }) => {
+  const { t, dir } = useI18n();
+  const [activeTab, setActiveTab] = useState<'overview' | 'services' | 'previews' | 'showcase' | 'beforeAfter'>('overview');
   const [selectedServiceId, setSelectedServiceId] = useState<string>('corporate-website');
   const [previewMode, setPreviewMode] = useState<'portal' | 'dashboard' | 'auth' | 'reporting'>('portal');
 
@@ -146,7 +307,7 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
                 onMouseEnter={() => soundManager.playHover()}
                 className="text-lg font-mono text-[#D4AF37] hover:text-white transition-colors cursor-pointer"
               >
-                &larr; {t('industries.allSolutions')}
+                &larr; {t('allSolutions')}
               </button>
             )}
           </div>
@@ -168,7 +329,7 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
               onMouseEnter={() => soundManager.playHover()}
               className="px-6 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#E6C766] to-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider font-display gold-glow hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] transition-all cursor-pointer flex items-center gap-2"
             >
-              <span>Book a Meeting</span>
+              <span>{t('common.bookMeeting')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
@@ -180,7 +341,7 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
               onMouseEnter={() => soundManager.playHover()}
               className="px-6 py-3.5 rounded-full bg-white/[0.05] border border-white/15 text-white font-medium text-xs font-mono uppercase tracking-wider hover:bg-white/[0.1] hover:border-white/30 transition-all cursor-pointer"
             >
-              Explore 10 Services
+              {t('common.exploreServices', { count: FINTECH_DATA.services.length })}
             </button>
           </div>
         </div>
@@ -188,10 +349,11 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
         {/* Quick Tabs Bar */}
         <div className="relative z-10 mt-10 pt-8 border-t border-white/10 flex flex-wrap items-center gap-2">
           {[
-            { id: 'overview', label: 'Overview' },
-            { id: 'services', label: '10 Services' },
-            { id: 'previews', label: 'System Previews' },
-            { id: 'showcase', label: 'Project Showcase' },
+            { id: 'overview', label: t('common.overview') },
+            { id: 'services', label: `${FINTECH_DATA.services.length} ${t('common.services')}` },
+            { id: 'previews', label: t('common.systemPreviews') },
+            { id: 'beforeAfter', label: t('common.operationalComparison') },
+            { id: 'showcase', label: t('common.projectShowcase') },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -217,23 +379,23 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
         <div className="space-y-8">
           <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
             <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-              SYSTEM ARCHITECTURE
+              {t('common.systemArchitecture')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-              Financial Platform System Previews
+              {t('common.financialPlatformSystemPreviews')}
             </h3>
             <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
-              Preview bank-grade client portals, executive dashboards, zero-trust authentication pipelines, and automated reporting interfaces.
+              {t('common.previewBankGrade')}
             </p>
           </div>
 
           {/* Interactive Preview Mode Selector */}
           <div className="flex flex-wrap items-center gap-3">
             {[
-              { id: 'portal', label: 'Customer Portal' },
-              { id: 'dashboard', label: 'Admin Dashboard' },
-              { id: 'auth', label: 'Secure Auth (MFA)' },
-              { id: 'reporting', label: 'Automated Reporting' },
+              { id: 'portal', label: t('common.customerPortal') },
+              { id: 'dashboard', label: t('common.adminDashboard') },
+              { id: 'auth', label: t('common.secureAuth') },
+              { id: 'reporting', label: t('common.automatedReporting') },
             ].map((pm) => (
               <button
                 key={pm.id}
@@ -261,10 +423,10 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                 <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
                 <span className="ml-2 text-white font-mono uppercase">
-                  FinTech Surface // {previewMode.toUpperCase()}
+                  {t('common.fintechSurface')} // {previewMode.toUpperCase()}
                 </span>
               </span>
-              <span className="text-[#D4AF37]">ENCRYPTED BANK-GRADE TELEMETRY</span>
+              <span className="text-[#D4AF37]">{t('common.encryptedBankGradeTelemetry')}</span>
             </div>
 
             <div className="py-10 px-6 bg-[#040407] rounded-2xl border border-white/5 min-h-[300px] flex items-center justify-center text-center">
@@ -273,9 +435,9 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <UserCheck className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">Client Portal Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.clientPortal')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Client account portal preview placeholder demonstrating encrypted asset tracking, real-time account balances, document vaults, and advisor messaging.
+                    {t('common.clientPortalPreviewDescription')}
                   </p>
                 </div>
               )}
@@ -285,9 +447,9 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <LayoutDashboard className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">Operations Dashboard Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.operationsDashboard')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Administrative control center preview placeholder highlighting real-time transaction ledger monitors, multi-user role assignments, and audit logs.
+                    {t('common.operationsDashboardPreviewDescription')}
                   </p>
                 </div>
               )}
@@ -297,9 +459,9 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <ShieldCheck className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">Authentication & Identity Pipeline Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.authPipeline')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Zero-trust security architecture preview placeholder illustrating hardware passkey verification, multi-factor authorization, and biometric sign-in steps.
+                    {t('common.authPipelinePreviewDescription')}
                   </p>
                 </div>
               )}
@@ -309,9 +471,9 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <FileText className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">Automated Reporting Engine Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.reportingEngine')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Automated financial statement compiler preview placeholder demonstrating scheduled tax document exports, PDF generation, and regulatory compliance formatting.
+                    {t('common.reportingEnginePreviewDescription')}
                   </p>
                 </div>
               )}
@@ -320,18 +482,63 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
         </div>
       )}
 
-      {/* 2. THE 10 SERVICES SECTION */}
-      {(activeTab === 'services' || activeTab === 'overview') && (
+      {/* 3. BEFORE & AFTER INTERACTIVE COMPARISON SCENE */}
+      {activeTab === 'beforeAfter' && (
+        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0c0c10]/95 via-[#08080a]/95 to-[#12100d]/95 border border-[#D4AF37]/30 backdrop-blur-2xl space-y-8">
+          <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
+            <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
+              {t('common.operationalComparison')}
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
+              {t('common.beforeAfterTransformation')}
+            </h3>
+            <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
+              {t('common.fintechComparisonDescription')}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8">
+            {FINTECH_DATA.beforeAfter.map((item, idx) => (
+              <div key={idx} className="space-y-4">
+                <div className="text-xs font-mono text-[#D4AF37] uppercase tracking-wider border-b border-white/10 pb-3">
+                  {item.metricTitle}
+                </div>
+                <BeforeAfterSlider
+                  beforeImage={item.beforeImage}
+                  afterImage={item.afterImage}
+                  beforeLabel={t(`common.${item.beforeLabel}`)}
+                  afterLabel={t(`common.${item.afterLabel}`)}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl bg-red-950/20 border border-red-800/30 space-y-1.5">
+                    <p className="text-xs text-red-200/90 font-light leading-relaxed">
+                      {item.beforeText}
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30 space-y-1.5">
+                    <p className="text-xs text-emerald-200/90 font-light leading-relaxed">
+                      {item.afterText}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 2. THE 8 SERVICES SECTION */}
+      {activeTab === 'services' && (
         <div className="space-y-8">
           <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
             <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-              END-TO-END SERVICES
+              {t('common.endToEndServices')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-              The 10 FinTech Services
+              {t('common.theFinTechServices', { count: FINTECH_DATA.services.length })}
             </h3>
             <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
-              Custom financial technology engineering built to meet rigorous security, compliance, and operational standards.
+              {t('common.customFinancialTechnology')}
             </p>
           </div>
 
@@ -374,7 +581,7 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
 
                     <ChevronRight
                       className={`w-4 h-4 transition-transform ${
-                        isSelected ? 'text-[#D4AF37] translate-x-1' : 'text-white/20'
+                        isSelected ? `text-[#D4AF37] ${dir === 'rtl' ? '-translate-x-1' : 'translate-x-1'}` : 'text-white/20'
                       }`}
                     />
                   </div>
@@ -386,7 +593,7 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
             <div className="lg:col-span-7 p-8 rounded-3xl bg-[#0b0b10]/95 border border-[#D4AF37]/30 backdrop-blur-2xl space-y-6">
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[10px] font-mono text-[#E6C766] uppercase">
-                  <span>SERVICE {selectedService.number} // SPECIFICATION</span>
+                  <span>{t('common.serviceSpecification')} {selectedService.number}</span>
                 </div>
                 <h4 className="text-2xl font-bold font-display text-white">{selectedService.title}</h4>
                 <div className="text-xs font-mono text-[#D4AF37]">{selectedService.tagline}</div>
@@ -397,7 +604,7 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
 
               <div className="space-y-3 pt-6 border-t border-white/10">
                 <div className="text-xs font-mono text-white uppercase tracking-wider">
-                  Deliverables & Highlights
+                  {t('common.deliverablesHighlights')}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {selectedService.highlights.map((hl, idx) => (
@@ -413,7 +620,7 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
               </div>
 
               <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-                <span className="text-xs font-mono text-[#A7A7A7]">INSTITUTIONAL GRADE</span>
+                <span>{t('common.institutionalGrade')}</span>
                 <button
                   onClick={() => {
                     soundManager.playClick();
@@ -421,7 +628,7 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
                   }}
                   className="px-5 py-2.5 rounded-xl bg-[#D4AF37] text-black font-bold text-xs uppercase font-display hover:bg-[#E6C766] transition-colors cursor-pointer"
                 >
-                  Book a Meeting
+                  {t('common.bookMeeting')}
                 </button>
               </div>
             </div>
@@ -429,18 +636,18 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
         </div>
       )}
 
-      {/* 3. PROJECT SHOWCASE (STRUCTURED PLACEHOLDERS) */}
-      {(activeTab === 'showcase' || activeTab === 'overview') && (
+      {/* 4. PROJECT SHOWCASE SECTION */}
+      {activeTab === 'showcase' && (
         <div className="space-y-8">
           <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
             <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-              PORTFOLIO SHOWCASE
+              {t('common.projectShowcase')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-              FinTech Projects Showcase
+              {t('common.fintechProjectShowcaseTitle')}
             </h3>
             <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
-              Structured placeholders for financial technology platforms and institutional wealth management portals.
+              {t('common.fintechProjectShowcaseDescription')}
             </p>
           </div>
 
@@ -462,26 +669,26 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
                     {proj.description}
                   </p>
 
-                  {/* Placeholder Frames Matrix */}
+                  {/* Project Images Matrix */}
                   <div className="grid grid-cols-3 gap-3 pt-2">
                     <div className="p-3 rounded-xl bg-black/80 border border-white/10 text-center space-y-1">
-                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">PORTAL</div>
-                      <div className="text-[11px] font-mono text-[#A7A7A7]">{proj.mainImagePlaceholder}</div>
+                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">{t('common.portal')}</div>
+                      <img src={proj.mainImage} alt="Portal" className="w-full h-16 object-cover rounded" />
                     </div>
 
                     <div className="p-3 rounded-xl bg-black/80 border border-white/10 text-center space-y-1">
-                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">DASHBOARD</div>
-                      <div className="text-[11px] font-mono text-[#A7A7A7]">{proj.dashboardPlaceholder}</div>
+                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">{t('common.dashboard')}</div>
+                      <img src={proj.dashboard} alt="Dashboard" className="w-full h-16 object-cover rounded" />
                     </div>
 
                     <div className="p-3 rounded-xl bg-black/80 border border-white/10 text-center space-y-1">
-                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">SECURITY</div>
-                      <div className="text-[11px] font-mono text-[#A7A7A7]">{proj.securityPlaceholder}</div>
+                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">{t('common.security')}</div>
+                      <img src={proj.security} alt="Security" className="w-full h-16 object-cover rounded" />
                     </div>
                   </div>
 
                   <div className="space-y-2 pt-2 border-t border-white/10">
-                    <div className="text-[10px] font-mono text-[#A7A7A7] uppercase">Services Implemented:</div>
+                    <div className="text-[10px] font-mono text-[#A7A7A7] uppercase">{t('common.servicesImplemented')}</div>
                     <div className="flex flex-wrap gap-2">
                       {proj.servicesUsed.map((srv, sIdx) => (
                         <span key={sIdx} className="px-2.5 py-1 rounded-md bg-white/[0.04] text-[10px] font-mono text-[#E6C766]">
@@ -493,8 +700,8 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
                 </div>
 
                 <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-[#D4AF37]">
-                  <span>Editable Project Specification</span>
-                  <span>Ready for Live Data</span>
+                  <span>{t('common.editableProjectSpecification')}</span>
+                  <span>{t('common.readyForLiveData')}</span>
                 </div>
               </div>
             ))}
@@ -506,15 +713,15 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
       <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0c0c12]/95 via-[#08080c]/95 to-[#121018]/95 border border-[#D4AF37]/40 backdrop-blur-2xl text-center space-y-6 gold-glow">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono text-[#E6C766] uppercase tracking-widest">
           <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-          <span>BUILD YOUR FINTECH ARCHITECTURE</span>
+          <span>{t('common.buildYourFintechArchitecture')}</span>
         </div>
 
         <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-white">
-          Ready to Engineer High-Security Financial Solutions?
+          {t('common.readyToEngineerFinancialSolutions')}
         </h3>
 
         <p className="text-sm text-[#A7A7A7] font-light max-w-2xl mx-auto leading-relaxed">
-          Schedule a technical consultation with our software architects to review client portal requirements, security authentication pipelines, and automated reporting systems.
+          {t('common.scheduleTechnicalConsultation')}
         </p>
 
         <div className="pt-2">
@@ -526,7 +733,7 @@ export const FintechSolutions: React.FC<FintechSolutionsProps> = ({
             onMouseEnter={() => soundManager.playHover()}
             className="px-8 py-4 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#E6C766] to-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider font-display gold-glow hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all cursor-pointer inline-flex items-center gap-2"
           >
-            <span>Book a Meeting</span>
+            <span>{t('common.bookMeeting')}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

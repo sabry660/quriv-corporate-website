@@ -12,6 +12,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { soundManager } from '../utils/sound';
+import { useI18n } from '../utils/i18n';
 
 export interface TeamMemberItem {
   id: string;
@@ -82,6 +83,7 @@ interface TeamShowcaseProps {
 }
 
 export const TeamShowcase: React.FC<TeamShowcaseProps> = ({ onOpenBookMeeting }) => {
+  const { t } = useI18n();
   const [activeHoverId, setActiveHoverId] = useState<string | null>(null);
   const [copiedEmailId, setCopiedEmailId] = useState<string | null>(null);
 
@@ -105,11 +107,11 @@ export const TeamShowcase: React.FC<TeamShowcaseProps> = ({ onOpenBookMeeting })
       <div className="text-center max-w-2xl mx-auto space-y-4">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono text-[#E6C766] uppercase tracking-widest">
           <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-          <span>OUR PROFESSIONALS</span>
+          <span>{t('common.ourProfessionals')}</span>
         </div>
 
         <p className="text-sm sm:text-base text-[#C0C0C0] font-light leading-relaxed">
-          Our team brings together experienced software architects, cloud engineers, and product designers dedicated to building resilient, high-performance digital systems. We collaborate directly with our partners to turn complex technical challenges into clean, scalable software.
+          {t('common.teamDescription')}
         </p>
       </div>
 
@@ -200,7 +202,6 @@ export const TeamShowcase: React.FC<TeamShowcaseProps> = ({ onOpenBookMeeting })
               {/* Card Footer: Social & Contact Triggers */}
               <div className="pt-4 border-t border-white/10 flex items-center justify-between relative z-10 gap-3">
                 <div className="flex items-center gap-2">
-                  {/* LinkedIn Placeholder Button */}
                   <button
                     onClick={(e) => handleOpenLinkedIn(e, member.linkedInUrl)}
                     onMouseEnter={() => soundManager.playHover()}
@@ -254,7 +255,7 @@ export const TeamShowcase: React.FC<TeamShowcaseProps> = ({ onOpenBookMeeting })
       {/* Bottom Summary Badge */}
       <div className="flex items-center justify-center gap-2 pt-4 text-xs font-mono text-[#A7A7A7]">
         <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
-        <span>DIRECT ARCHITECTURAL CONSULTATIONS AVAILABLE</span>
+        <span>{t('common.directConsultationsAvailable')}</span>
       </div>
     </div>
   );

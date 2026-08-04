@@ -12,6 +12,7 @@ import {
   MessageSquare
 } from 'lucide-react';
 import { soundManager } from '../utils/sound';
+import { useI18n } from '../utils/i18n';
 
 export interface FaqItem {
   id: string;
@@ -25,61 +26,71 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: 'faq-1',
     category: 'Engineering',
-    question: 'What defines Quriv Technologies’ software engineering standards?',
-    answer: 'We engineer custom, high-concurrency software architectures combining resilient backend services with responsive modern user interfaces. Every line of code is structured for modularity, clean type safety, edge performance, and long-term enterprise maintainability.',
+    question: 'faq1Question',
+    answer: 'faq1Answer',
     highlights: ['Sub-120ms Target Latency', 'Clean TypeScript & Type Stripping', 'Modular Component Architecture', 'Automated Integration Testing'],
   },
   {
     id: 'faq-2',
     category: 'Security',
-    question: 'How are data protection, privacy, and system security enforced?',
-    answer: 'All architectures adhere to strict security protocols including end-to-end payload encryption, role-based access control (RBAC), sanitized API parameters, and zero client-exposed API secrets. Cloud databases and edge gateways are isolated behind secure middleware proxies.',
+    question: 'faq2Question',
+    answer: 'faq2Answer',
     highlights: ['Zero Client-Exposed API Keys', 'Encrypted Transport Payloads', 'Role-Based Access Control', 'Automated Vulnerability Audits'],
   },
   {
     id: 'faq-3',
     category: 'Engagement',
-    question: 'What is the standard project lifecycle and engagement model?',
-    answer: 'Our engagement model begins with an in-depth architectural consultation and scope blueprinting, followed by milestone-driven agile development sprints. Clients receive continuous live preview environments, transparent telemetry updates, and direct channel communication with lead software engineers.',
+    question: 'faq3Question',
+    answer: 'faq3Answer',
     highlights: ['Direct Architect Access', 'Milestone Sprint Billing', 'Live Staging Previews', '24/7 Telemetry Dashboard'],
   },
   {
     id: 'faq-4',
     category: 'Ownership',
-    question: 'Who owns the final source code and intellectual property?',
-    answer: 'You retain 100% full ownership of all custom software codebases, database schemas, API integrations, and digital design assets. Upon project completion, all repository access, production builds, and documentation are transferred entirely to your organization with zero recurring platform lock-in fees.',
+    question: 'faq4Question',
+    answer: 'faq4Answer',
     highlights: ['100% IP Ownership Transfer', 'Zero Platform Lock-in Fees', 'Full Source Code Repositories', 'Complete Architecture Documentation'],
   },
   {
     id: 'faq-5',
     category: 'Cloud & SLA',
-    question: 'What hosting and cloud deployment architectures are supported?',
-    answer: 'We deploy across leading enterprise cloud platforms including Cloud Run, AWS, Google Cloud, and edge CDN networks. We configure automated CI/CD pipelines, container orchestration, zero-downtime rolling updates, and failover redundancy.',
+    question: 'faq5Question',
+    answer: 'faq5Answer',
     highlights: ['Multi-Cloud Redundancy', 'Zero-Downtime Deployment', 'Automated Container Builds', '24/7 Infrastructure Monitoring'],
   },
   {
     id: 'faq-6',
     category: 'Engineering',
-    question: 'Can Quriv integrate with existing legacy databases or third-party APIs?',
-    answer: 'Yes. We specialize in building secure microservice wrappers, custom REST/GraphQL gateways, and database connectors that seamlessly synchronize with your existing legacy systems without requiring disruptive infrastructure overhauls.',
+    question: 'faq6Question',
+    answer: 'faq6Answer',
     highlights: ['REST & GraphQL Gateways', 'Legacy System Wrappers', 'Bi-Directional Database Sync', 'Custom Middleware Architecture'],
   },
 ];
 
-const CATEGORIES = ['All', 'Engineering', 'Security', 'Engagement', 'Ownership', 'Cloud & SLA'] as const;
+const CATEGORIES = ['categoryAll', 'categoryEngineering', 'categorySecurity', 'categoryEngagement', 'categoryOwnership', 'categoryCloudSla'] as const;
 
 interface FaqAccordionProps {
   onOpenBookMeeting: () => void;
 }
 
 export const FaqAccordion: React.FC<FaqAccordionProps> = ({ onOpenBookMeeting }) => {
+  const { t } = useI18n();
   const [openId, setOpenId] = useState<string | null>('faq-1');
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useState<string>('categoryAll');
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const filteredItems = selectedCategory === 'All'
+  const filteredItems = selectedCategory === 'categoryAll'
     ? FAQ_ITEMS
-    : FAQ_ITEMS.filter((item) => item.category === selectedCategory);
+    : FAQ_ITEMS.filter((item) => {
+        const categoryMap: Record<string, string> = {
+          'categoryEngineering': 'Engineering',
+          'categorySecurity': 'Security',
+          'categoryEngagement': 'Engagement',
+          'categoryOwnership': 'Ownership',
+          'categoryCloudSla': 'Cloud & SLA'
+        };
+        return item.category === categoryMap[selectedCategory];
+      });
 
   const toggleAccordion = (id: string) => {
     soundManager.playClick();
@@ -111,10 +122,10 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({ onOpenBookMeeting })
       <div className="text-center space-y-3">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono text-[#E6C766] uppercase tracking-widest">
           <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-          <span>KNOWLEDGE BASE & ARCHITECTURAL CLARITY</span>
+          <span>{t('common.knowledgeBase')}</span>
         </div>
         <p className="text-sm text-[#A7A7A7] font-light leading-relaxed max-w-2xl mx-auto">
-          Direct answers regarding our software engineering standards, security protocols, engagement workflows, and full intellectual property ownership.
+          {t('common.knowledgeBaseDescription')}
         </p>
       </div>
 
@@ -136,7 +147,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({ onOpenBookMeeting })
                   : 'bg-black/50 border border-white/10 text-[#A7A7A7] hover:text-white hover:bg-white/10'
               }`}
             >
-              {cat}
+              {t(`common.${cat}`)}
             </button>
           );
         })}
@@ -170,36 +181,31 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({ onOpenBookMeeting })
                 onClick={() => toggleAccordion(item.id)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 onMouseEnter={() => soundManager.playHover()}
-                className="w-full p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 focus:ring-offset-black rounded-2xl group"
+                className="w-full p-6 text-start flex items-center justify-between gap-4 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 focus:ring-offset-black rounded-2xl group"
               >
                 <div className="flex items-center gap-4">
                   {/* Category Indicator Icon Badge */}
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
-                    isOpen ? 'bg-[#D4AF37] text-black font-bold' : 'bg-white/5 border border-white/10 text-[#D4AF37] group-hover:border-[#D4AF37]'
-                  }`}>
-                    {item.category === 'Engineering' && <Code2 className="w-5 h-5" />}
-                    {item.category === 'Security' && <Lock className="w-5 h-5" />}
-                    {item.category === 'Engagement' && <Layers className="w-5 h-5" />}
-                    {item.category === 'Ownership' && <ShieldCheck className="w-5 h-5" />}
-                    {item.category === 'Cloud & SLA' && <HelpCircle className="w-5 h-5" />}
+                  <div
+                    className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                      isOpen ? 'bg-[#D4AF37]/20 border-[#D4AF37]' : 'bg-white/[0.03] border-white/10'
+                    } border transition-all`}
+                  >
+                    <MessageSquare className="w-5 h-5 text-[#D4AF37]" />
                   </div>
-
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest font-bold">
-                      // {item.category}
-                    </span>
-                    <h3 className="text-base sm:text-lg font-bold font-display text-white group-hover:text-[#E6C766] transition-colors leading-snug">
-                      {item.question}
-                    </h3>
+                  <div className="flex-1">
+                    <div className="text-sm font-mono text-[#D4AF37] uppercase tracking-wider mb-1">
+                      {t(`common.${item.category}`)}
+                    </div>
+                    <div className="text-base font-bold font-display text-white">
+                      {t(`faq.${item.id}.question`)}
+                    </div>
                   </div>
                 </div>
-
-                {/* Animated Chevron Indicator */}
-                <div className={`w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-[#D4AF37] transition-transform duration-300 ${
-                  isOpen ? 'rotate-180 bg-[#D4AF37]/20 border-[#D4AF37]' : 'group-hover:bg-white/10'
-                }`}>
-                  <ChevronDown className="w-4 h-4" />
-                </div>
+                <ChevronDown
+                  className={`w-5 h-5 text-[#A7A7A7] transition-transform duration-300 ${
+                    isOpen ? 'rotate-180 text-[#D4AF37]' : ''
+                  }`}
+                />
               </button>
 
               {/* Accordion Answer Content Panel */}
@@ -217,7 +223,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({ onOpenBookMeeting })
                   >
                     <div className="px-6 pb-6 pt-2 border-t border-white/10 space-y-4">
                       <p className="text-xs sm:text-sm text-[#C0C0C0] font-light leading-relaxed pl-14">
-                        {item.answer}
+                        {t(`common.${item.answer}`)}
                       </p>
 
                       {/* Optional Highlight Tags */}
@@ -250,7 +256,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({ onOpenBookMeeting })
             <MessageSquare className="w-6 h-6" />
           </div>
 
-          <div className="space-y-1 text-center sm:text-left">
+          <div className="space-y-1 text-center sm:text-start">
             <div className="text-base font-bold font-display text-white">
               Have a custom technical question?
             </div>

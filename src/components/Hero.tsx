@@ -105,7 +105,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookMeeting, onExploreClick })
             onMouseEnter={() => soundManager.playHover()}
             className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#E6C766] to-[#D4AF37] text-[#050505] text-xs sm:text-sm font-bold tracking-wider uppercase font-display gold-glow hover:shadow-[0_0_40px_rgba(212,175,55,0.6)] transition-all transform hover:-translate-y-1 active:translate-y-0"
           >
-            <span>{t('hero.bookMeeting')}</span>
+            <span>{t('hero.bookMeetingLabel')}</span>
           </button>
 
           <button
@@ -128,17 +128,25 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookMeeting, onExploreClick })
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mt-16 sm:mt-20 pt-8 sm:pt-10 border-t border-white/[0.08] w-full max-w-4xl"
         >
           {HERO_METRICS.map((metric, idx) => (
-            <div
+            <motion.div
               key={idx}
-              className="flex flex-col items-center p-5 rounded-2xl bg-[#101010]/70 border border-white/[0.06] backdrop-blur-md hover:border-[#D4AF37]/30 transition-colors"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 + (idx * 0.1) }}
+              whileHover={{ scale: 1.05, borderColor: 'rgba(212, 175, 55, 0.5)' }}
+              className="flex flex-col items-center p-5 rounded-2xl bg-[#101010]/70 border border-white/[0.06] backdrop-blur-md hover:border-[#D4AF37]/30 transition-all cursor-default"
             >
-              <div className="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-tight">
+              <motion.div
+                whileHover={{ rotate: [0, -5, 5, -5, 0] }}
+                transition={{ duration: 0.5 }}
+                className="text-lg sm:text-xl md:text-2xl font-bold font-display text-white tracking-tight"
+              >
                 <Counter value={metric.value} />
-              </div>
+              </motion.div>
               <div className="text-[11px] text-[#A7A7A7] mt-1 font-light tracking-wide">
-                {metric.label}
+                {t(`common.${metric.labelKey}`)}
               </div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>
@@ -150,7 +158,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookMeeting, onExploreClick })
         className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 pointer-events-none z-10"
       >
         <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-[#A7A7A7]/70">
-          Cinematic Scroll
+          {t('common.cinematicScroll')}
         </span>
         <div className="w-5 h-8 rounded-full border border-white/20 p-1 flex justify-center">
           <div className="w-1 h-2 bg-[#D4AF37] rounded-full animate-bounce" />

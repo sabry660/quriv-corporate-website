@@ -189,7 +189,7 @@ export const AboutSection: React.FC<{ onOpenBookMeeting: () => void }> = ({ onOp
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <div className="lg:col-span-8 space-y-4">
               <h3 className="text-2xl sm:text-4xl font-extrabold font-display text-white leading-tight">
-                Crafting Software That Defines Digital Markets.
+                {t('common.craftingSoftware')}
               </h3>
               <p className="text-sm sm:text-base text-[#A7A7A7] font-light leading-relaxed">
                 {ABOUT_EXHIBIT_DATA.introduction}
@@ -199,20 +199,20 @@ export const AboutSection: React.FC<{ onOpenBookMeeting: () => void }> = ({ onOp
             {/* Live Telemetry Pillar */}
             <div className="lg:col-span-4 p-5 rounded-2xl bg-black/60 border border-white/10 space-y-3 font-mono text-xs text-[#A7A7A7]">
               <div className="text-[10px] text-[#E6C766] uppercase tracking-widest border-b border-white/[0.08] pb-2 flex justify-between items-center">
-                <span>HEADQUARTERS TELEMETRY</span>
+                <span>{t('common.headquartersTelemetry')}</span>
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
               </div>
               <div className="flex justify-between">
-                <span>LOCATION:</span>
-                <span className="text-white">Alexandria, Egypt</span>
+                <span>{t('common.locationAlexandria')}</span>
+                <span className="text-white">{t('common.alexandriaEgypt')}</span>
               </div>
               <div className="flex justify-between">
-                <span>ENGAGEMENT:</span>
-                <span className="text-[#E6C766]">International</span>
+                <span>{t('common.engagement')}</span>
+                <span className="text-[#E6C766]">{t('common.international')}</span>
               </div>
               <div className="flex justify-between">
-                <span>DELIVERY:</span>
-                <span className="text-white">Full Source Transfer</span>
+                <span>{t('common.delivery')}</span>
+                <span className="text-white">{t('common.fullSourceTransfer')}</span>
               </div>
             </div>
           </div>
@@ -232,8 +232,8 @@ export const AboutSection: React.FC<{ onOpenBookMeeting: () => void }> = ({ onOp
                     : 'bg-black/40 border-white/[0.06] text-[#A7A7A7] hover:bg-black/80 hover:text-white'
                 }`}
               >
-                <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest mb-1">FOUNDATIONAL MANIFESTO</div>
-                <div className="text-base font-bold font-display">Our Mission</div>
+                <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest mb-1">{t('common.foundationalManifesto')}</div>
+                <div className="text-base font-bold font-display">{t('common.ourMission')}</div>
               </button>
 
               <button
@@ -248,8 +248,8 @@ export const AboutSection: React.FC<{ onOpenBookMeeting: () => void }> = ({ onOp
                     : 'bg-black/40 border-white/[0.06] text-[#A7A7A7] hover:bg-black/80 hover:text-white'
                 }`}
               >
-                <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest mb-1">LONG-TERM BENCHMARK</div>
-                <div className="text-base font-bold font-display">Our Vision</div>
+                <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest mb-1">{t('common.longTermBenchmark')}</div>
+                <div className="text-base font-bold font-display">{t('common.ourVision')}</div>
               </button>
             </div>
 
@@ -286,9 +286,9 @@ export const AboutSection: React.FC<{ onOpenBookMeeting: () => void }> = ({ onOp
         <div className="space-y-6">
           <div className="text-center max-w-xl mx-auto space-y-1">
             <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest">
-              ENGINEERING PRINCIPLES
+              {t('common.engineeringPrinciples')}
             </div>
-            <h4 className="text-2xl font-bold font-display text-white">Core Values</h4>
+            <h4 className="text-2xl font-bold font-display text-white">{t('common.coreValues')}</h4>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -478,6 +478,13 @@ export const TechnologiesSection: React.FC<{ onOpenBookMeeting: () => void }> = 
 
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
+                        <div className="w-20 h-20 flex items-center justify-center bg-white/5 rounded-full overflow-hidden">
+                          <img
+                            src={tech.iconPath}
+                            alt={tech.name}
+                            className="w-16 h-16 object-contain"
+                          />
+                        </div>
                         <span className="text-xs font-mono text-[#D4AF37] opacity-80">{paddedIndex}</span>
                         <span className="text-lg font-extrabold font-display text-white tracking-wide group-hover:text-[#E6C766] transition-colors">
                           {tech.name}
@@ -685,7 +692,7 @@ export const TechnologiesSection: React.FC<{ onOpenBookMeeting: () => void }> = 
             <div className="lg:col-span-7 p-6 rounded-2xl bg-black/80 border border-white/10 space-y-6 flex flex-col justify-between min-h-[280px]">
               <div className="space-y-4">
                 <div className="text-[10px] font-mono text-[#E6C766] uppercase tracking-widest">
-                  SERVICE MODULE SPECIFICATION
+                  {t('common.serviceModuleSpecification')}
                 </div>
                 <h5 className="text-2xl font-bold font-display text-white">{selectedService.name}</h5>
                 <p className="text-sm text-[#A7A7A7] font-light leading-relaxed">
@@ -887,7 +894,7 @@ export const ProcessSection: React.FC<{ onOpenBookMeeting: () => void }> = ({ on
               {/* Description & Overview */}
               <div className="space-y-3">
                 <h4 className="text-xs font-mono uppercase text-[#D4AF37] tracking-wider">
-                  Phase Overview
+                  {t('common.phaseOverview')}
                 </h4>
                 <p className="text-base sm:text-lg text-[#A7A7A7] font-light leading-relaxed max-w-4xl">
                   {activeStep.description}
@@ -980,7 +987,7 @@ export const PartnersSection: React.FC<{ onOpenBookMeeting: () => void }> = ({ o
    4. INDUSTRIES WE SERVE SECTION
    ======================================================================== */
 export const IndustriesSection: React.FC<{ onOpenBookMeeting: () => void }> = ({ onOpenBookMeeting }) => {
-  const { t } = useI18n();
+  const { t, dir } = useI18n();
   const [selectedIndustry, setSelectedIndustry] = useState<'hospitality' | 'ecommerce' | 'food' | 'fintech' | null>(null);
   const [activeTab, setActiveTab] = useState<'services' | 'projects' | 'gallery' | 'testimonials'>('services');
 
@@ -1063,7 +1070,7 @@ export const IndustriesSection: React.FC<{ onOpenBookMeeting: () => void }> = ({
                 </div>
               </div>
 
-              {/* Preview image placeholder banner */}
+              {/* Preview image banner */}
               <div className="relative z-10 mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-xl bg-black/60 border border-white/10 overflow-hidden shrink-0">
@@ -1081,7 +1088,7 @@ export const IndustriesSection: React.FC<{ onOpenBookMeeting: () => void }> = ({
 
                 <div className="inline-flex items-center gap-2 text-xs font-mono text-[#D4AF37] group-hover:text-white font-bold transition-colors">
                   <span>ENTER HOSPITALITY</span>
-                  <span className="group-hover:translate-x-1.5 transition-transform duration-300">&rarr;</span>
+                  <span className={`transition-transform duration-300 ${dir === 'rtl' ? 'group-hover:-translate-x-1.5' : 'group-hover:translate-x-1.5'}`}>&rarr;</span>
                 </div>
               </div>
             </div>
@@ -1127,7 +1134,7 @@ export const IndustriesSection: React.FC<{ onOpenBookMeeting: () => void }> = ({
 
               <div className="relative z-10 mt-6 pt-6 border-t border-white/10 flex items-center justify-between text-xs font-mono text-[#D4AF37] group-hover:text-white font-bold transition-colors">
                 <span>EXPLORE E-COMMERCE</span>
-                <span className="group-hover:translate-x-1.5 transition-transform duration-300">&rarr;</span>
+                <span className={`transition-transform duration-300 ${dir === 'rtl' ? 'group-hover:-translate-x-1.5' : 'group-hover:translate-x-1.5'}`}>&rarr;</span>
               </div>
             </div>
 
@@ -1170,7 +1177,7 @@ export const IndustriesSection: React.FC<{ onOpenBookMeeting: () => void }> = ({
 
               <div className="relative z-10 mt-6 pt-6 border-t border-white/10 flex items-center justify-between text-xs font-mono text-[#D4AF37] group-hover:text-white font-bold transition-colors">
                 <span>EXPLORE FOOD ARCHITECTURE</span>
-                <span className="group-hover:translate-x-1.5 transition-transform duration-300">&rarr;</span>
+                <span className={`transition-transform duration-300 ${dir === 'rtl' ? 'group-hover:-translate-x-1.5' : 'group-hover:translate-x-1.5'}`}>&rarr;</span>
               </div>
             </div>
 
@@ -1213,7 +1220,7 @@ export const IndustriesSection: React.FC<{ onOpenBookMeeting: () => void }> = ({
 
               <div className="relative z-10 mt-6 pt-6 border-t border-white/10 flex items-center justify-between text-xs font-mono text-[#D4AF37] group-hover:text-white font-bold transition-colors">
                 <span>EXPLORE FINTECH SOLUTION</span>
-                <span className="group-hover:translate-x-1.5 transition-transform duration-300">&rarr;</span>
+                <span className={`transition-transform duration-300 ${dir === 'rtl' ? 'group-hover:-translate-x-1.5' : 'group-hover:translate-x-1.5'}`}>&rarr;</span>
               </div>
             </div>
           </div>
@@ -1370,7 +1377,7 @@ export const IndustriesSection: React.FC<{ onOpenBookMeeting: () => void }> = ({
 
                   <div className="flex items-center gap-3">
                     <span className="text-[10px] font-mono uppercase tracking-widest text-[#E6C766] px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30">
-                      {currentDetailedIndustry.heroPlaceholderSpec.badge}
+                      {currentDetailedIndustry.badge}
                     </span>
                   </div>
 
@@ -1404,34 +1411,34 @@ export const IndustriesSection: React.FC<{ onOpenBookMeeting: () => void }> = ({
                 </div>
               </div>
 
-              {/* HERO IMAGE PLACEHOLDER & OVERVIEW BANNER */}
+              {/* HERO IMAGE & OVERVIEW BANNER */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-black/60 p-6 sm:p-8 rounded-2xl border border-white/10">
                 <div className="lg:col-span-7 space-y-4">
                   <div className="text-xs font-mono text-[#D4AF37] uppercase tracking-wider">
-                    SOLUTION OVERVIEW
+                    {currentDetailedIndustry.overviewLabel}
                   </div>
-                  <p className="text-base sm:text-lg text-white/90 font-light leading-relaxed">
+                  <p className="text-sm text-[#A7A7A7] font-light leading-relaxed">
                     {currentDetailedIndustry.shortIntro}
                   </p>
                   <div className="pt-3 flex flex-wrap items-center gap-4 text-xs font-mono text-[#A7A7A7]">
-                    <span className="text-white font-bold">{currentDetailedIndustry.heroPlaceholderSpec.metricValue}</span>
+                    <span className="text-white font-bold">{currentDetailedIndustry.metricValue}</span>
                     <span>•</span>
-                    <span>{currentDetailedIndustry.heroPlaceholderSpec.metricLabel}</span>
+                    <span>{currentDetailedIndustry.metricLabel}</span>
                     <span>•</span>
-                    <span className="text-[#E6C766]">{currentDetailedIndustry.heroPlaceholderSpec.visualTheme}</span>
+                    <span className="text-[#E6C766]">{currentDetailedIndustry.visualTheme}</span>
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 relative group overflow-hidden rounded-2xl border border-white/15 aspect-[16/9] bg-black">
+                <div className="lg:col-span-5 relative rounded-xl overflow-hidden group">
                   <img
                     src={currentDetailedIndustry.heroImage}
-                    alt={`${currentDetailedIndustry.title} Architecture Visual`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                    alt={currentDetailedIndustry.title}
+                    className="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
                   <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-white">
                     <span className="bg-black/70 px-2.5 py-1 rounded-md border border-white/10 backdrop-blur-md">
-                      {currentDetailedIndustry.heroPlaceholderSpec.badge}
+                      {currentDetailedIndustry.badge}
                     </span>
                     <span className="text-[#E6C766] font-bold">VERIFIED ARCHITECTURE</span>
                   </div>

@@ -13,7 +13,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
   const { t, dir } = useI18n();
   const [step, setStep] = useState<1 | 2>(1);
   const [selectedDate, setSelectedDate] = useState(t('forms.bookMeeting.tomorrow10AM'));
-  const [selectedTopic, setSelectedTopic] = useState(t('forms.bookMeeting.enterpriseCloudArchitecture'));
+  const [selectedTopic, setSelectedTopic] = useState(t('forms.bookMeeting.topics.enterprise'));
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
@@ -75,17 +75,17 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
             </div>
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.3em] text-[#D4AF37]">
               <Calendar className="w-4 h-4" />
-              <span>{t('forms.bookMeeting.executiveConsultation')}</span>
+              <span>{t('common.executiveConsultation')}</span>
             </div>
           </div>
 
           {!submitted ? (
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold font-display text-white mb-2">
-                {t('forms.bookMeeting.bookStrategicSession')}
+                                {t('forms.bookMeeting.bookStrategicSession')}
               </h2>
               <p className="text-sm text-[#A7A7A7] mb-8">
-                {t('forms.bookMeeting.connectDirectly')}
+                                {t('forms.bookMeeting.connectDirectly')}
               </p>
 
               {step === 1 ? (
@@ -93,7 +93,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                   {/* Select Topic */}
                   <div>
                     <label className="block text-xs font-mono uppercase tracking-wider text-[#A7A7A7] mb-3">
-                      {t('forms.bookMeeting.selectTopic')}
+                                            {t('forms.bookMeeting.selectTopic')}
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {[
@@ -124,7 +124,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                   {/* Select Time slot */}
                   <div>
                     <label className="block text-xs font-mono uppercase tracking-wider text-[#A7A7A7] mb-3">
-                      {t('forms.bookMeeting.selectTimeSlot')}
+                                            {t('forms.bookMeeting.selectTimeSlot')}
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {[
@@ -159,7 +159,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                     }}
                     className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#E6C766] text-[#050505] font-bold text-sm uppercase tracking-wider font-display hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] transition-all"
                   >
-                    <span>Continue to Contact Info</span>
+                                        <span>{t('forms.bookMeeting.continueToContactInfo')}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -167,7 +167,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-xs font-mono uppercase text-[#A7A7A7] mb-1.5">
-                      {t('forms.bookMeeting.fullName')}
+                                            {t('forms.bookMeeting.fullName')}
                     </label>
                     <div className="relative">
                       <User className="absolute left-3.5 top-3.5 w-4 h-4 text-[#A7A7A7]" />
@@ -183,7 +183,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
 
                   <div>
                     <label className="block text-xs font-mono uppercase text-[#A7A7A7] mb-1.5">
-                      {t('forms.bookMeeting.email')}
+                                            {t('forms.bookMeeting.email')}
                     </label>
                     <div className="relative">
                       <Mail className="absolute left-3.5 top-3.5 w-4 h-4 text-[#A7A7A7]" />
@@ -199,7 +199,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
 
                   <div>
                     <label className="block text-xs font-mono uppercase text-[#A7A7A7] mb-1.5">
-                      {t('forms.bookMeeting.company')}
+                                            {t('forms.bookMeeting.company')}
                     </label>
                     <div className="relative">
                       <Building className="absolute left-3.5 top-3.5 w-4 h-4 text-[#A7A7A7]" />
@@ -225,7 +225,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                       type="submit"
                       className="w-2/3 py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#E6C766] text-[#050505] font-bold text-xs uppercase tracking-wider font-display hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] transition-all"
                     >
-                      {t('forms.bookMeeting.submit')}
+                                            {t('forms.bookMeeting.submit')}
                     </button>
                   </div>
                 </form>
@@ -237,13 +237,10 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                 <CheckCircle2 className="w-8 h-8 text-[#E6C766]" />
               </div>
               <h3 className="text-2xl font-bold font-display text-white mb-2">
-                Meeting Confirmed
+                {t('bookMeeting.bookingConfirmed')}
               </h3>
               <p className="text-sm text-[#A7A7A7] max-w-md mb-6 leading-relaxed">
-                Thank you, <span className="text-white font-medium">{name}</span>. A calendar invitation for{' '}
-                <span className="text-[#E6C766] font-mono">{selectedDate}</span> regarding{' '}
-                <span className="text-white">{selectedTopic}</span> has been dispatched to{' '}
-                <span className="text-white font-mono">{email}</span>.
+                {t('bookMeeting.bookingConfirmedMessage')}
               </p>
               <button
                 onClick={handleResetAndClose}

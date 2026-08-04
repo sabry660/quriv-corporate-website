@@ -20,10 +20,13 @@ import {
   ChevronRight,
   Clock,
   Layers,
-  Store
+  Store,
+  TrendingUp,
+  MessageSquare
 } from 'lucide-react';
 import { soundManager } from '../utils/sound';
 import { useI18n } from '../utils/i18n';
+import { BeforeAfterSlider } from './BeforeAfterSlider';
 
 interface FoodIndustrySolutionsProps {
   onOpenBookMeeting: () => void;
@@ -36,7 +39,7 @@ export const FOOD_INDUSTRY_DATA = {
   intro:
     'Quriv partners with fine dining establishments, restaurant chains, and cloud kitchens to elevate guest experiences, streamline kitchen dispatch operations, and maximize direct online ordering channels.',
 
-  /* 11 SPECIFIC SERVICES */
+  /* 8 EXCLUSIVE SERVICES */
   services: [
     {
       id: 'website',
@@ -51,6 +54,16 @@ export const FOOD_INDUSTRY_DATA = {
         'Direct Booking & Table Reservation Widget',
         'Sub-150ms Page Loading Speeds',
         'Multi-Location Store Locator',
+      ],
+      previews: {
+        desktop: '/projects/food-website-desktop.jpg',
+        tablet: '/projects/food-website-tablet.jpg',
+        mobile: '/projects/food-website-mobile.jpg',
+      },
+      screenshots: [
+        '/projects/food-website-1.jpg',
+        '/projects/food-website-2.jpg',
+        '/projects/food-website-3.jpg',
       ],
     },
     {
@@ -67,6 +80,18 @@ export const FOOD_INDUSTRY_DATA = {
         'Multi-Language & Currency Support',
         'Allergen & Dietary Filtering',
       ],
+      features: [
+        'High-Resolution Dish Photos',
+        'Dietary Filtering',
+        'Multi-Language Support',
+        'Instant Ordering',
+        'Real-Time Availability',
+      ],
+      screenshots: [
+        '/projects/food-qr-1.jpg',
+        '/projects/food-qr-2.jpg',
+        '/projects/food-qr-3.jpg',
+      ],
     },
     {
       id: 'online-ordering',
@@ -81,6 +106,17 @@ export const FOOD_INDUSTRY_DATA = {
         'Scheduled Pickup & Delivery Slots',
         'Custom Modifier & Topping Selectors',
         'One-Touch Apple Pay / Google Pay',
+      ],
+      features: [
+        'Custom Modifiers',
+        'Scheduled Orders',
+        'Multiple Payment Options',
+        'Order Tracking',
+        'Guest Accounts',
+      ],
+      screenshots: [
+        '/projects/food-ordering-1.jpg',
+        '/projects/food-ordering-2.jpg',
       ],
     },
     {
@@ -97,6 +133,17 @@ export const FOOD_INDUSTRY_DATA = {
         'Live Rider Tracking Telemetry',
         'Estimated Time of Arrival (ETA) Calculations',
       ],
+      features: [
+        'Multi-Courier Integration',
+        'Live Tracking',
+        'Auto-Dispatch',
+        'ETA Calculations',
+        'Order Consolidation',
+      ],
+      screenshots: [
+        '/projects/food-delivery-1.jpg',
+        '/projects/food-delivery-2.jpg',
+      ],
     },
     {
       id: 'kitchen-dashboard',
@@ -111,6 +158,17 @@ export const FOOD_INDUSTRY_DATA = {
         'Order Preparation Timer Alerts',
         'Instant Prep Delay Notifications',
         'Order Assembly Verification',
+      ],
+      modules: [
+        'Station Routing',
+        'Prep Timers',
+        'Delay Alerts',
+        'Order Queue',
+        'Assembly Verification',
+      ],
+      screenshots: [
+        '/projects/food-kitchen-1.jpg',
+        '/projects/food-kitchen-2.jpg',
       ],
     },
     {
@@ -127,10 +185,98 @@ export const FOOD_INDUSTRY_DATA = {
         'Special Requests & VIP Guest Profiles',
         'No-Show Prevention Deposit Options',
       ],
+      features: [
+        'Floor Plan Management',
+        'VIP Profiles',
+        'Deposit Collection',
+        'SMS Confirmations',
+        'Waitlist Management',
+      ],
+      screenshots: [
+        '/projects/food-reservations-1.jpg',
+        '/projects/food-reservations-2.jpg',
+      ],
+    },
+    {
+      id: 'marketing',
+      number: '07',
+      title: 'Marketing Service',
+      tagline: 'Monthly Full-Service Digital Brand Management',
+      description:
+        'Dedicated monthly social media and digital marketing service crafted to elevate brand prestige and drive qualified guest inquiries.',
+      icon: TrendingUp,
+      deliverables: [
+        '20 Posts / Month',
+        '10 Reels / Month',
+        'Influencer Communication',
+        'Food Review Pages',
+        'Paid Advertising',
+        'Community Management',
+        'DM Replies',
+        'Comment Management',
+        'Weekly Strategy Meetings',
+        'Bespoke Graphic Design',
+        'Weekly Performance Reports',
+      ],
+    },
+    {
+      id: 'monthly-consulting',
+      number: '08',
+      title: 'Monthly Consulting',
+      tagline: 'Dedicated Strategic Review Meetings',
+      description:
+        'Monthly review meetings with our technology and growth team to analyze performance, refine strategy, and map out future digital initiatives.',
+      icon: MessageSquare,
+      pillars: [
+        'Growth Strategy',
+        'Strategic Recommendations',
+        'Performance Reviews',
+        'Future Roadmap Planning',
+      ],
     },
   ],
 
-  /* PROJECT SHOWCASE PLACEHOLDERS */
+  /* BEFORE & AFTER COMPARISON */
+  beforeAfter: [
+    {
+      metricTitle: 'Order Taking & Processing',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Paper order tickets, manual phone calls, handwritten kitchen notes, and delayed order transmission.',
+      afterLabel: 'digitallyTransformedRestaurant',
+      afterText: 'Digital order entry, instant kitchen display system, automated routing, and real-time order tracking.',
+      beforeImage: '/projects/food-before-1.jpg',
+      afterImage: '/projects/food-after-1.jpg',
+    },
+    {
+      metricTitle: 'Menu Management',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Printed physical menus, manual price updates, seasonal reprinting costs, and limited item information.',
+      afterLabel: 'digitallyTransformedRestaurant',
+      afterText: 'Digital QR menus, instant price updates, real-time availability toggles, and rich item descriptions.',
+      beforeImage: '/projects/food-before-2.jpg',
+      afterImage: '/projects/food-after-2.jpg',
+    },
+    {
+      metricTitle: 'Table Reservations',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Phone-based bookings, manual reservation books, double-booking errors, and no guest history tracking.',
+      afterLabel: 'digitallyTransformedRestaurant',
+      afterText: 'Online booking system, automated table management, guest preference tracking, and instant confirmations.',
+      beforeImage: '/projects/food-before-3.jpg',
+      afterImage: '/projects/food-after-3.jpg',
+    },
+    {
+      metricTitle: 'Inventory & Cost Control',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Manual stock counting, spreadsheet tracking, delayed waste reporting, and inaccurate cost analysis.',
+      afterLabel: 'digitallyTransformedRestaurant',
+      afterText: 'Real-time inventory tracking, automated low-stock alerts, precise cost analysis, and waste reduction insights.',
+      beforeImage: '/projects/food-before-4.jpg',
+      afterImage: '/projects/food-after-4.jpg',
+    },
+  ],
+
+  /* PROJECT SHOWCASE */
   projects: [
     {
       id: 'food-proj-1',
@@ -139,9 +285,9 @@ export const FOOD_INDUSTRY_DATA = {
       description:
         'Complete restaurant digital deployment featuring a luxury brand website, QR code menu ordering, and kitchen display system (KDS) integration.',
       servicesUsed: ['Website', 'QR Menu', 'Online Ordering', 'Kitchen Dashboard', 'Analytics'],
-      mainImagePlaceholder: 'Placeholder Restaurant Image',
-      qrMenuPlaceholder: 'Placeholder QR Menu Interface',
-      kdsPlaceholder: 'Placeholder Kitchen Display Console',
+      mainImage: '/projects/food-restaurant-1.jpg',
+      qrMenu: '/projects/food-qr-menu-1.jpg',
+      kds: '/projects/food-kds-1.jpg',
     },
     {
       id: 'food-proj-2',
@@ -150,21 +296,18 @@ export const FOOD_INDUSTRY_DATA = {
       description:
         'Centralized online ordering platform with automated delivery courier integration, table reservation management, and Google Business profile optimization.',
       servicesUsed: ['Online Ordering', 'Delivery Integration', 'Reservations', 'Google Business', 'Monthly Consulting'],
-      mainImagePlaceholder: 'Placeholder Restaurant Image',
-      qrMenuPlaceholder: 'Placeholder QR Menu Interface',
-      kdsPlaceholder: 'Placeholder Kitchen Display Console',
+      mainImage: '/projects/food-restaurant-2.jpg',
+      qrMenu: '/projects/food-qr-menu-2.jpg',
+      kds: '/projects/food-kds-2.jpg',
     },
   ],
 };
 
-export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
-  onOpenBookMeeting,
-  onBack,
-}) => {
-  const { t } = useI18n();
-  const [activeTab, setActiveTab] = useState<'overview' | 'services' | 'previews' | 'showcase'>('overview');
-  const [selectedServiceId, setSelectedServiceId] = useState<string>('website');
-  const [previewMode, setPreviewMode] = useState<'qrmenu' | 'kds' | 'ordering' | 'reservations'>('qrmenu');
+export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({ onOpenBookMeeting, onBack }) => {
+  const { t, dir } = useI18n();
+  const [activeTab, setActiveTab] = useState<'overview' | 'services' | 'previews' | 'showcase' | 'beforeAfter'>('overview');
+  const [selectedServiceId, setSelectedServiceId] = useState<string>('qr-ordering');
+  const [previewMode, setPreviewMode] = useState<'kitchen' | 'delivery' | 'reservations' | 'analytics'>('kitchen');
 
   const selectedService =
     FOOD_INDUSTRY_DATA.services.find((s) => s.id === selectedServiceId) || FOOD_INDUSTRY_DATA.services[0];
@@ -180,7 +323,7 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
           <div className="flex items-center justify-between">
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono uppercase tracking-widest text-[#E6C766]">
               <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
-              <span>RESTAURANT & CULINARY TECHNOLOGY</span>
+              <span>{t('common.restaurantCulinaryTechnology')}</span>
             </div>
 
             {onBack && (
@@ -192,7 +335,7 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
                 onMouseEnter={() => soundManager.playHover()}
                 className="text-lg font-mono text-[#D4AF37] hover:text-white transition-colors cursor-pointer"
               >
-                &larr; {t('industries.allSolutions')}
+                &larr; {t('allSolutions')}
               </button>
             )}
           </div>
@@ -214,7 +357,7 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
               onMouseEnter={() => soundManager.playHover()}
               className="px-6 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#E6C766] to-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider font-display gold-glow hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] transition-all cursor-pointer flex items-center gap-2"
             >
-              <span>Book a Meeting</span>
+              <span>{t('common.bookMeeting')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
@@ -226,7 +369,7 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
               onMouseEnter={() => soundManager.playHover()}
               className="px-6 py-3.5 rounded-full bg-white/[0.05] border border-white/15 text-white font-medium text-xs font-mono uppercase tracking-wider hover:bg-white/[0.1] hover:border-white/30 transition-all cursor-pointer"
             >
-              Explore 11 Services
+              {t('common.exploreServices', { count: FOOD_INDUSTRY_DATA.services.length })}
             </button>
           </div>
         </div>
@@ -234,10 +377,11 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
         {/* Quick Tabs Bar */}
         <div className="relative z-10 mt-10 pt-8 border-t border-white/10 flex flex-wrap items-center gap-2">
           {[
-            { id: 'overview', label: 'Overview' },
-            { id: 'services', label: '11 Services' },
-            { id: 'previews', label: 'System Previews' },
-            { id: 'showcase', label: 'Project Showcase' },
+            { id: 'overview', label: t('common.overview') },
+            { id: 'services', label: `${FOOD_INDUSTRY_DATA.services.length} ${t('common.services')}` },
+            { id: 'previews', label: t('common.systemPreviews') },
+            { id: 'beforeAfter', label: t('common.operationalComparison') },
+            { id: 'showcase', label: t('common.projectShowcase') },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -263,23 +407,23 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
         <div className="space-y-8">
           <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
             <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-              CULINARY SYSTEMS
+              {t('common.culinarySystems')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-              Restaurant Technology System Previews
+              {t('common.restaurantTechnologySystemPreviews')}
             </h3>
             <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
-              Preview our specialized restaurant technologies across contactless QR menus, kitchen display systems, direct ordering portals, and table reservation engines.
+              {t('common.restaurantTechnologyPreviewDescription')}
             </p>
           </div>
 
           {/* Interactive Preview Mode Selector */}
           <div className="flex flex-wrap items-center gap-3">
             {[
-              { id: 'qrmenu', label: 'Contactless QR Menu' },
-              { id: 'kds', label: 'Kitchen Display (KDS)' },
-              { id: 'ordering', label: 'Online Ordering Portal' },
-              { id: 'reservations', label: 'Table Reservations' },
+              { id: 'qrmenu', label: t('common.contactlessQrMenu') },
+              { id: 'kds', label: t('common.kitchenDisplayKds') },
+              { id: 'ordering', label: t('common.onlineOrderingPortal') },
+              { id: 'reservations', label: t('common.tableReservations') },
             ].map((pm) => (
               <button
                 key={pm.id}
@@ -307,10 +451,10 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                 <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
                 <span className="ml-2 text-white font-mono uppercase">
-                  Culinary Preview // {previewMode.toUpperCase()}
+                  {t('common.foodIndustrySurface')} // {previewMode.toUpperCase()}
                 </span>
               </span>
-              <span className="text-[#D4AF37]">OPTIMIZED RESTAURANT OPERATIONS</span>
+              <span className="text-[#D4AF37]">{t('common.optimizedRestaurantOperations')}</span>
             </div>
 
             <div className="py-10 px-6 bg-[#060503] rounded-2xl border border-white/5 min-h-[300px] flex items-center justify-center text-center">
@@ -319,9 +463,9 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <QrCode className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">QR Menu Interface Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.qrMenu')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Interactive mobile QR code menu preview placeholder featuring dietary tags, real-time item availability toggles, high-resolution food photography, and direct-from-table ordering.
+                    Interactive mobile QR code menu featuring dietary tags, real-time item availability toggles, high-resolution food photography, and direct-from-table ordering.
                   </p>
                 </div>
               )}
@@ -331,9 +475,9 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <ChefHat className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">Kitchen Display System (KDS) Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.kitchenDisplay')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Kitchen display console preview placeholder highlighting station-specific ticket routing, color-coded prep timing countdowns, delay alerts, and instant order bump functions.
+                    Kitchen display console highlighting station-specific ticket routing, color-coded prep timing countdowns, delay alerts, and instant order bump functions.
                   </p>
                 </div>
               )}
@@ -343,9 +487,9 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <UtensilsCrossed className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">Online Ordering Portal Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.onlineOrdering')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Commission-free direct web ordering portal preview placeholder featuring scheduled pickup times, custom meal modifiers, Apple Pay integration, and automated courier assignment.
+                    Commission-free direct web ordering portal featuring scheduled pickup times, custom meal modifiers, Apple Pay integration, and automated courier assignment.
                   </p>
                 </div>
               )}
@@ -355,9 +499,9 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <CalendarDays className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">Table Reservations Console Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.tableReservations')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Host station floor plan and table booking console preview placeholder showcasing real-time seating availability, guest VIP notes, and automated WhatsApp booking confirmations.
+                    Host station floor plan and table booking console showcasing real-time seating availability, guest VIP notes, and automated WhatsApp booking confirmations.
                   </p>
                 </div>
               )}
@@ -366,18 +510,18 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
         </div>
       )}
 
-      {/* 2. THE 11 SERVICES SECTION */}
-      {(activeTab === 'services' || activeTab === 'overview') && (
+      {/* 2. THE 8 SERVICES SECTION */}
+      {activeTab === 'services' && (
         <div className="space-y-8">
           <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
             <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-              END-TO-END SERVICES
+              {t('common.endToEndServices')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-              The 11 Food Industry Services
+              {t('common.theFoodIndustryServices', { count: FOOD_INDUSTRY_DATA.services.length })}
             </h3>
             <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
-              Complete technology solutions tailored specifically for modern culinary brands, restaurants, and cloud kitchens.
+              {t('common.customFoodTechnology')}
             </p>
           </div>
 
@@ -421,7 +565,7 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
 
                     <ChevronRight
                       className={`w-4 h-4 transition-transform ${
-                        isSelected ? 'text-[#D4AF37] translate-x-1' : 'text-white/20'
+                        isSelected ? `text-[#D4AF37] ${dir === 'rtl' ? '-translate-x-1' : 'translate-x-1'}` : 'text-white/20'
                       }`}
                     />
                   </div>
@@ -433,7 +577,7 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
             <div className="lg:col-span-7 p-8 rounded-3xl bg-[#0e0c08]/95 border border-[#D4AF37]/30 backdrop-blur-2xl space-y-6">
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[10px] font-mono text-[#E6C766] uppercase">
-                  <span>SERVICE {selectedService.number} // SPECIFICATION</span>
+                  <span>{t('common.serviceSpecification')} {selectedService.number}</span>
                 </div>
                 <h4 className="text-2xl font-bold font-display text-white">{selectedService.title}</h4>
                 <div className="text-xs font-mono text-[#D4AF37]">{selectedService.tagline}</div>
@@ -444,7 +588,7 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
 
               <div className="space-y-3 pt-6 border-t border-white/10">
                 <div className="text-xs font-mono text-white uppercase tracking-wider">
-                  Core Highlights & Features
+                  {t('common.coreHighlightsFeatures')}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {selectedService.highlights.map((hl, idx) => (
@@ -460,7 +604,7 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
               </div>
 
               <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-                <span className="text-xs font-mono text-[#A7A7A7]">RESTAURANT READY</span>
+                <span>{t('common.restaurantReady')}</span>
                 <button
                   onClick={() => {
                     soundManager.playClick();
@@ -468,7 +612,7 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
                   }}
                   className="px-5 py-2.5 rounded-xl bg-[#D4AF37] text-black font-bold text-xs uppercase font-display hover:bg-[#E6C766] transition-colors cursor-pointer"
                 >
-                  Book a Meeting
+                  {t('common.bookMeeting')}
                 </button>
               </div>
             </div>
@@ -476,18 +620,63 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
         </div>
       )}
 
-      {/* 3. PROJECT SHOWCASE (STRUCTURED PLACEHOLDERS) */}
-      {(activeTab === 'showcase' || activeTab === 'overview') && (
+      {/* 3. BEFORE & AFTER INTERACTIVE COMPARISON SCENE */}
+      {activeTab === 'beforeAfter' && (
+        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0c0c10]/95 via-[#08080a]/95 to-[#12100d]/95 border border-[#D4AF37]/30 backdrop-blur-2xl space-y-8">
+          <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
+            <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
+              {t('common.operationalComparison')}
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
+              {t('common.beforeAfterTransformation')}
+            </h3>
+            <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
+              {t('common.foodIndustryComparisonDescription')}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8">
+            {FOOD_INDUSTRY_DATA.beforeAfter.map((item, idx) => (
+              <div key={idx} className="space-y-4">
+                <div className="text-xs font-mono text-[#D4AF37] uppercase tracking-wider border-b border-white/10 pb-3">
+                  {item.metricTitle}
+                </div>
+                <BeforeAfterSlider
+                  beforeImage={item.beforeImage}
+                  afterImage={item.afterImage}
+                  beforeLabel={t(`common.${item.beforeLabel}`)}
+                  afterLabel={t(`common.${item.afterLabel}`)}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl bg-red-950/20 border border-red-800/30 space-y-1.5">
+                    <p className="text-xs text-red-200/90 font-light leading-relaxed">
+                      {item.beforeText}
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30 space-y-1.5">
+                    <p className="text-xs text-emerald-200/90 font-light leading-relaxed">
+                      {item.afterText}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 4. PROJECT SHOWCASE (STRUCTURED PLACEHOLDERS) */}
+      {activeTab === 'showcase' && (
         <div className="space-y-8">
           <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
             <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-              PORTFOLIO SHOWCASE
+              {t('common.portfolioShowcase')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-              Food Industry Projects
+              {t('common.foodIndustryProjectsShowcase')}
             </h3>
             <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
-              Structured placeholders for restaurant digital transformations and multi-branch culinary group deployments.
+              {t('common.foodIndustryProjectsDescription')}
             </p>
           </div>
 
@@ -509,26 +698,26 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
                     {proj.description}
                   </p>
 
-                  {/* Placeholder Frames Matrix */}
+                  {/* Project Images Matrix */}
                   <div className="grid grid-cols-3 gap-3 pt-2">
                     <div className="p-3 rounded-xl bg-black/80 border border-white/10 text-center space-y-1">
-                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">STOREFRONT</div>
-                      <div className="text-[11px] font-mono text-[#A7A7A7]">{proj.mainImagePlaceholder}</div>
+                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">{t('common.restaurant')}</div>
+                      <img src={proj.mainImage} alt="Restaurant" className="w-full h-16 object-cover rounded" />
                     </div>
 
                     <div className="p-3 rounded-xl bg-black/80 border border-white/10 text-center space-y-1">
-                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">QR MENU</div>
-                      <div className="text-[11px] font-mono text-[#A7A7A7]">{proj.qrMenuPlaceholder}</div>
+                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">{t('common.qrMenu')}</div>
+                      <img src={proj.qrMenu} alt="QR Menu" className="w-full h-16 object-cover rounded" />
                     </div>
 
                     <div className="p-3 rounded-xl bg-black/80 border border-white/10 text-center space-y-1">
-                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">KITCHEN KDS</div>
-                      <div className="text-[11px] font-mono text-[#A7A7A7]">{proj.kdsPlaceholder}</div>
+                      <div className="text-[9px] font-mono text-[#D4AF37] uppercase">{t('common.kitchenKds')}</div>
+                      <img src={proj.kds} alt="KDS" className="w-full h-16 object-cover rounded" />
                     </div>
                   </div>
 
                   <div className="space-y-2 pt-2 border-t border-white/10">
-                    <div className="text-[10px] font-mono text-[#A7A7A7] uppercase">Services Implemented:</div>
+                    <div className="text-[10px] font-mono text-[#A7A7A7] uppercase">{t('common.servicesImplemented')}</div>
                     <div className="flex flex-wrap gap-2">
                       {proj.servicesUsed.map((srv, sIdx) => (
                         <span key={sIdx} className="px-2.5 py-1 rounded-md bg-white/[0.04] text-[10px] font-mono text-[#E6C766]">
@@ -540,8 +729,8 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
                 </div>
 
                 <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-[#D4AF37]">
-                  <span>Editable Project Specification</span>
-                  <span>Ready for Live Data</span>
+                  <span>{t('common.editableProjectSpecification')}</span>
+                  <span>{t('common.readyForLiveData')}</span>
                 </div>
               </div>
             ))}
@@ -553,15 +742,15 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
       <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#120e0a]/95 via-[#0a0805]/95 to-[#16120b]/95 border border-[#D4AF37]/40 backdrop-blur-2xl text-center space-y-6 gold-glow">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono text-[#E6C766] uppercase tracking-widest">
           <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-          <span>START YOUR RESTAURANT TRANSFORMATION</span>
+          <span>{t('common.buildYourFoodIndustryArchitecture')}</span>
         </div>
 
         <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-white">
-          Ready to Modernize Your Food Business?
+          {t('common.readyToEngineerFoodSolutions')}
         </h3>
 
         <p className="text-sm text-[#A7A7A7] font-light max-w-2xl mx-auto leading-relaxed">
-          Book a consultation with our culinary technology specialists to review online ordering, QR menu systems, and kitchen display integrations for your restaurant.
+          {t('common.bookCulinaryConsultation')}
         </p>
 
         <div className="pt-2">
@@ -573,7 +762,7 @@ export const FoodIndustrySolutions: React.FC<FoodIndustrySolutionsProps> = ({
             onMouseEnter={() => soundManager.playHover()}
             className="px-8 py-4 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#E6C766] to-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider font-display gold-glow hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all cursor-pointer inline-flex items-center gap-2"
           >
-            <span>Book a Meeting</span>
+            <span>{t('common.bookMeeting')}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

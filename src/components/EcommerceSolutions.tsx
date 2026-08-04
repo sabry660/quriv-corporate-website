@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
+  Globe,
+  ShoppingCart,
+  Smartphone,
+  BarChart3,
+  MessageSquare,
+  ArrowRight,
+  ExternalLink,
+  CheckCircle2,
+  Sparkles,
+  ChevronRight,
+  Clock,
+  Layers,
+  TrendingUp,
+  Search,
+  ShieldCheck,
   ShoppingBag,
   LayoutDashboard,
   CreditCard,
   Boxes,
   ShoppingBasket,
-  UserCheck,
-  BarChart3,
-  Search,
-  Megaphone,
-  ArrowRight,
-  ExternalLink,
-  Smartphone,
-  Monitor,
-  CheckCircle2,
-  Calendar,
-  Layers,
-  Sparkles,
-  TrendingUp,
-  ShieldCheck,
-  ChevronRight,
-  ChevronLeft
+  UserCheck
 } from 'lucide-react';
 import { soundManager } from '../utils/sound';
 import { useI18n } from '../utils/i18n';
+import { BeforeAfterSlider } from './BeforeAfterSlider';
 
 interface EcommerceSolutionsProps {
   onOpenBookMeeting: () => void;
@@ -37,7 +38,7 @@ export const ECOMMERCE_DATA = {
   intro:
     'Quriv helps brands scale and sell globally through custom, high-concurrency e-commerce architectures engineered for lightning-fast speeds, seamless payment processing, and high-conversion checkout experiences.',
 
-  /* 9 SPECIFIC SERVICES */
+  /* 8 EXCLUSIVE SERVICES */
   services: [
     {
       id: 'online-store',
@@ -52,6 +53,16 @@ export const ECOMMERCE_DATA = {
         'Sub-150ms Page Load Times',
         'Custom Product Configuration',
         'Mobile-First Touch Navigation',
+      ],
+      previews: {
+        desktop: '/projects/ecom-store-desktop.jpg',
+        tablet: '/projects/ecom-store-tablet.jpg',
+        mobile: '/projects/ecom-store-mobile.jpg',
+      },
+      screenshots: [
+        '/projects/ecom-store-1.jpg',
+        '/projects/ecom-store-2.jpg',
+        '/projects/ecom-store-3.jpg',
       ],
     },
     {
@@ -68,6 +79,17 @@ export const ECOMMERCE_DATA = {
         'Role-Based Staff Access',
         'Custom Data Exports',
       ],
+      modules: [
+        'Sales Overview',
+        'Inventory Control',
+        'Order Management',
+        'Customer Analytics',
+        'Staff Permissions',
+      ],
+      screenshots: [
+        '/projects/ecom-dashboard-1.jpg',
+        '/projects/ecom-dashboard-2.jpg',
+      ],
     },
     {
       id: 'payment-gateway',
@@ -82,6 +104,17 @@ export const ECOMMERCE_DATA = {
         'PCI-DSS Compliant Security',
         'One-Click Apple Pay / Google Pay',
         'Automated Tax Calculation',
+      ],
+      features: [
+        'Multi-Currency Support',
+        'Fraud Detection',
+        'Instant Checkout',
+        'Tax Automation',
+        'Recurring Payments',
+      ],
+      screenshots: [
+        '/projects/ecom-payment-1.jpg',
+        '/projects/ecom-payment-2.jpg',
       ],
     },
     {
@@ -98,6 +131,17 @@ export const ECOMMERCE_DATA = {
         'Variant & SKU Management',
         'Supplier Orders Telemetry',
       ],
+      features: [
+        'Real-Time Sync',
+        'Low Stock Alerts',
+        'SKU Management',
+        'Supplier Portal',
+        'Forecasting',
+      ],
+      screenshots: [
+        '/projects/ecom-inventory-1.jpg',
+        '/projects/ecom-inventory-2.jpg',
+      ],
     },
     {
       id: 'order-management',
@@ -112,6 +156,17 @@ export const ECOMMERCE_DATA = {
         'Shipping Label Generation',
         'Live Courier Tracking API',
         'Returns & Refunds Portal',
+      ],
+      features: [
+        'Auto-Routing',
+        'Label Printing',
+        'Tracking Integration',
+        'Returns Portal',
+        'Bulk Processing',
+      ],
+      screenshots: [
+        '/projects/ecom-order-1.jpg',
+        '/projects/ecom-order-2.jpg',
       ],
     },
     {
@@ -128,41 +183,129 @@ export const ECOMMERCE_DATA = {
         'Re-Order & Wishlist Portals',
         'Tiered Loyalty Program Integration',
       ],
+      features: [
+        'Social Login',
+        'Address Vault',
+        'Order History',
+        'Wishlist',
+        'Loyalty Points',
+      ],
+      screenshots: [
+        '/projects/ecom-accounts-1.jpg',
+        '/projects/ecom-accounts-2.jpg',
+      ],
+    },
+    {
+      id: 'marketing',
+      number: '07',
+      title: 'Marketing Service',
+      tagline: 'Monthly Full-Service Digital Brand Management',
+      description:
+        'Dedicated monthly social media and digital marketing service crafted to elevate brand prestige and drive qualified customer inquiries.',
+      icon: TrendingUp,
+      deliverables: [
+        '20 Posts / Month',
+        '10 Reels / Month',
+        'Influencer Communication',
+        'Product Launch Campaigns',
+        'Paid Advertising',
+        'Community Management',
+        'DM Replies',
+        'Comment Management',
+        'Weekly Strategy Meetings',
+        'Bespoke Graphic Design',
+        'Weekly Performance Reports',
+      ],
+    },
+    {
+      id: 'monthly-consulting',
+      number: '08',
+      title: 'Monthly Consulting',
+      tagline: 'Dedicated Strategic Review Meetings',
+      description:
+        'Monthly review meetings with our technology and growth team to analyze performance, refine strategy, and map out future digital initiatives.',
+      icon: MessageSquare,
+      pillars: [
+        'Growth Strategy',
+        'Strategic Recommendations',
+        'Performance Reviews',
+        'Future Roadmap Planning',
+      ],
     },
   ],
 
-  /* PROJECT SHOWCASE PLACEHOLDERS */
+  /* BEFORE & AFTER COMPARISON */
+  beforeAfter: [
+    {
+      metricTitle: 'Product Discovery & Browsing',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Static category pages, limited search functionality, manual product filtering, and poor mobile experience.',
+      afterLabel: 'digitallyTransformedStore',
+      afterText: 'Dynamic product discovery, AI-powered search, instant filtering, and seamless mobile-first browsing.',
+      beforeImage: '/projects/ecom-before-1.jpg',
+      afterImage: '/projects/ecom-after-1.jpg',
+    },
+    {
+      metricTitle: 'Checkout & Payment',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Multi-page checkout forms, manual payment entry, cart abandonment issues, and slow processing times.',
+      afterLabel: 'digitallyTransformedStore',
+      afterText: 'One-page checkout, saved payment methods, instant processing, and multiple payment gateway options.',
+      beforeImage: '/projects/ecom-before-2.jpg',
+      afterImage: '/projects/ecom-after-2.jpg',
+    },
+    {
+      metricTitle: 'Inventory Management',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Manual stock updates, overselling issues, delayed sync across channels, and manual reordering.',
+      afterLabel: 'digitallyTransformedStore',
+      afterText: 'Real-time inventory sync, automated stock alerts, multi-channel synchronization, and predictive reordering.',
+      beforeImage: '/projects/ecom-before-3.jpg',
+      afterImage: '/projects/ecom-after-3.jpg',
+    },
+    {
+      metricTitle: 'Customer Analytics',
+      beforeLabel: 'traditionalOperations',
+      beforeText: 'Basic sales reports, manual data analysis, delayed insights, and limited customer segmentation.',
+      afterLabel: 'digitallyTransformedStore',
+      afterText: 'Real-time analytics dashboard, AI-powered insights, instant reporting, and advanced customer segmentation.',
+      beforeImage: '/projects/ecom-before-4.jpg',
+      afterImage: '/projects/ecom-after-4.jpg',
+    },
+  ],
+
+  /* PROJECT SHOWCASE */
   projects: [
     {
       id: 'ecom-proj-1',
-      name: '[ E-Commerce Partner Brand ]',
-      market: '[ Global Direct-to-Consumer ]',
+      name: '[ E-commerce Partner Name ]',
+      market: '[ Market / Region ]',
       description:
         'High-concurrency online storefront engineered with custom product configurators, localized currency switching, and automated warehouse fulfillment.',
       servicesUsed: ['Online Store Development', 'Admin Dashboard', 'Payment Gateway Integration', 'Analytics'],
-      mainImagePlaceholder: 'Placeholder Project Image',
-      mobileScreensPlaceholder: 'Placeholder Mobile Screens',
-      dashboardPlaceholder: 'Placeholder Dashboard',
-      analyticsPlaceholder: 'Placeholder Analytics',
+      mainImage: '/projects/ecom-store-1.jpg',
+      mobile: '/projects/ecom-mobile-1.jpg',
+      dashboard: '/projects/ecom-dashboard-1.jpg',
+      analytics: '/projects/ecom-analytics-1.jpg',
     },
     {
       id: 'ecom-proj-2',
-      name: '[ Retail Enterprise Platform ]',
-      market: '[ Multi-Region Retailer ]',
+      name: '[ Multi-Brand Retailer ]',
+      market: '[ Global Market ]',
       description:
         'Enterprise multi-brand commerce portal featuring real-time inventory synchronization across 15 physical stores and an integrated customer accounts system.',
       servicesUsed: ['Inventory Management', 'Order Management', 'Customer Accounts', 'SEO', 'Marketing'],
-      mainImagePlaceholder: 'Placeholder Project Image',
-      mobileScreensPlaceholder: 'Placeholder Mobile Screens',
-      dashboardPlaceholder: 'Placeholder Dashboard',
-      analyticsPlaceholder: 'Placeholder Analytics',
+      mainImage: '/projects/ecom-store-2.jpg',
+      mobile: '/projects/ecom-mobile-2.jpg',
+      dashboard: '/projects/ecom-dashboard-2.jpg',
+      analytics: '/projects/ecom-analytics-2.jpg',
     },
   ],
 };
 
 export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBookMeeting, onBack }) => {
-  const { t } = useI18n();
-  const [activeTab, setActiveTab] = useState<'overview' | 'services' | 'showcase' | 'previews'>('overview');
+  const { t, dir } = useI18n();
+  const [activeTab, setActiveTab] = useState<'overview' | 'services' | 'showcase' | 'previews' | 'beforeAfter'>('overview');
   const [selectedServiceId, setSelectedServiceId] = useState<string>('online-store');
   const [previewMode, setPreviewMode] = useState<'storefront' | 'dashboard' | 'mobile' | 'analytics'>('storefront');
 
@@ -192,7 +335,7 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
                 onMouseEnter={() => soundManager.playHover()}
                 className="text-lg font-mono text-[#D4AF37] hover:text-white transition-colors cursor-pointer"
               >
-                &larr; {t('industries.allSolutions')}
+                &larr; {t('allSolutions')}
               </button>
             )}
           </div>
@@ -214,7 +357,7 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
               onMouseEnter={() => soundManager.playHover()}
               className="px-6 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#E6C766] to-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider font-display gold-glow hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] transition-all cursor-pointer flex items-center gap-2"
             >
-              <span>Book a Meeting</span>
+              <span>{t('common.bookMeeting')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
@@ -226,7 +369,7 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
               onMouseEnter={() => soundManager.playHover()}
               className="px-6 py-3.5 rounded-full bg-white/[0.05] border border-white/15 text-white font-medium text-xs font-mono uppercase tracking-wider hover:bg-white/[0.1] hover:border-white/30 transition-all cursor-pointer"
             >
-              Explore 9 Services
+              {t('common.exploreServices', { count: ECOMMERCE_DATA.services.length })}
             </button>
           </div>
         </div>
@@ -234,10 +377,11 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
         {/* Quick Tabs Bar */}
         <div className="relative z-10 mt-10 pt-8 border-t border-white/10 flex flex-wrap items-center gap-2">
           {[
-            { id: 'overview', label: 'Overview' },
-            { id: 'services', label: '9 Core Services' },
-            { id: 'previews', label: 'System Previews' },
-            { id: 'showcase', label: 'Project Showcase' },
+            { id: 'overview', label: t('common.overview') },
+            { id: 'services', label: `${ECOMMERCE_DATA.services.length} ${t('common.services')}` },
+            { id: 'previews', label: t('common.systemPreviews') },
+            { id: 'beforeAfter', label: t('common.operationalComparison') },
+            { id: 'showcase', label: t('common.projectShowcase') },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -263,23 +407,23 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
         <div className="space-y-8">
           <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
             <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-              SYSTEM ARCHITECTURE
+              {t('common.systemArchitecture')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-              Interactive Commerce System Previews
+              {t('common.interactiveCommerceSystemPreviews')}
             </h3>
             <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
-              Preview the components of our e-commerce platforms across storefronts, management dashboards, mobile screens, and analytics telemetry.
+              {t('common.customCommerceTechnology')}
             </p>
           </div>
 
           {/* Interactive Preview Mode Selector */}
           <div className="flex flex-wrap items-center gap-3">
             {[
-              { id: 'storefront', label: 'Online Storefront' },
-              { id: 'dashboard', label: 'Admin Dashboard' },
-              { id: 'mobile', label: 'Mobile Screens' },
-              { id: 'analytics', label: 'Analytics Telemetry' },
+              { id: 'storefront', label: t('common.onlineStorefront') },
+              { id: 'dashboard', label: t('common.adminDashboard') },
+              { id: 'mobile', label: t('common.mobileScreens') },
+              { id: 'analytics', label: t('common.analyticsTelemetry') },
             ].map((pm) => (
               <button
                 key={pm.id}
@@ -319,9 +463,9 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <ShoppingBag className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">Online Storefront Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.onlineStorefront')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Interactive storefront preview placeholder displaying fluid product listing grid, dynamic filtering options, localized pricing, and sub-second checkout drawer.
+                    {t('common.onlineStorefrontPreviewDescription')}
                   </p>
                 </div>
               )}
@@ -331,9 +475,9 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <LayoutDashboard className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">Admin Dashboard Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.adminDashboard')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Real-time admin console preview placeholder featuring inventory management, order routing telemetry, SKU updates, and multi-channel synchronization controls.
+                    {t('common.adminDashboardPreviewDescription')}
                   </p>
                 </div>
               )}
@@ -343,9 +487,9 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <Smartphone className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">Mobile Screens Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.mobileScreens')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Responsive mobile shopping app screen placeholders featuring swipeable product galleries, one-touch Apple Pay checkout, and instant order tracking.
+                    {t('common.mobileScreensPreviewDescription')}
                   </p>
                 </div>
               )}
@@ -355,9 +499,9 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
                   <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mx-auto text-[#D4AF37]">
                     <BarChart3 className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold font-display text-white">Analytics Preview Placeholder</h4>
+                  <h4 className="text-xl font-bold font-display text-white">{t('common.analyticsTelemetry')}</h4>
                   <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
-                    Commerce analytics report preview placeholder visualizing real-time sales velocity, conversion funnels, customer acquisition metrics, and revenue projections.
+                    {t('common.analyticsTelemetryPreviewDescription')}
                   </p>
                 </div>
               )}
@@ -366,8 +510,8 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
         </div>
       )}
 
-      {/* 2. THE 9 CORE SERVICES SECTION */}
-      {(activeTab === 'services' || activeTab === 'overview') && (
+      {/* 2. THE 8 CORE SERVICES SECTION */}
+      {activeTab === 'services' && (
         <div className="space-y-8">
           <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
             <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
@@ -421,7 +565,7 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
 
                     <ChevronRight
                       className={`w-4 h-4 transition-transform ${
-                        isSelected ? 'text-[#D4AF37] translate-x-1' : 'text-white/20'
+                        isSelected ? `text-[#D4AF37] ${dir === 'rtl' ? '-translate-x-1' : 'translate-x-1'}` : 'text-white/20'
                       }`}
                     />
                   </div>
@@ -433,7 +577,7 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
             <div className="lg:col-span-7 p-8 rounded-3xl bg-[#0b0b0f]/95 border border-[#D4AF37]/30 backdrop-blur-2xl space-y-6">
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[10px] font-mono text-[#E6C766] uppercase">
-                  <span>SERVICE {selectedService.number} // SPECIFICATION</span>
+                  <span>{t('common.serviceSpecification')} {selectedService.number}</span>
                 </div>
                 <h4 className="text-2xl font-bold font-display text-white">{selectedService.title}</h4>
                 <div className="text-xs font-mono text-[#D4AF37]">{selectedService.tagline}</div>
@@ -444,7 +588,7 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
 
               <div className="space-y-3 pt-6 border-t border-white/10">
                 <div className="text-xs font-mono text-white uppercase tracking-wider">
-                  Deliverables & Features
+                  {t('common.deliverablesFeatures')}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {selectedService.deliverables.map((del, idx) => (
@@ -460,7 +604,7 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
               </div>
 
               <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-                <span className="text-xs font-mono text-[#A7A7A7]">READY FOR DEPLOYMENT</span>
+                <span>{t('common.readyForDeployment')}</span>
                 <button
                   onClick={() => {
                     soundManager.playClick();
@@ -468,7 +612,7 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
                   }}
                   className="px-5 py-2.5 rounded-xl bg-[#D4AF37] text-black font-bold text-xs uppercase font-display hover:bg-[#E6C766] transition-colors cursor-pointer"
                 >
-                  Request Consultation
+                  {t('common.bookMeeting')}
                 </button>
               </div>
             </div>
@@ -476,18 +620,63 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
         </div>
       )}
 
-      {/* 3. PROJECT SHOWCASE SECTION (STRUCTURED PLACEHOLDERS) */}
-      {(activeTab === 'showcase' || activeTab === 'overview') && (
+      {/* 3. BEFORE & AFTER INTERACTIVE COMPARISON SCENE */}
+      {activeTab === 'beforeAfter' && (
+        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0c0c10]/95 via-[#08080a]/95 to-[#12100d]/95 border border-[#D4AF37]/30 backdrop-blur-2xl space-y-8">
+          <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
+            <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
+              {t('common.operationalComparison')}
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
+              {t('common.beforeAfterTransformation')}
+            </h3>
+            <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
+              {t('common.ecommerceComparisonDescription')}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8">
+            {ECOMMERCE_DATA.beforeAfter.map((item, idx) => (
+              <div key={idx} className="space-y-4">
+                <div className="text-xs font-mono text-[#D4AF37] uppercase tracking-wider border-b border-white/10 pb-3">
+                  {item.metricTitle}
+                </div>
+                <BeforeAfterSlider
+                  beforeImage={item.beforeImage}
+                  afterImage={item.afterImage}
+                  beforeLabel={t(`common.${item.beforeLabel}`)}
+                  afterLabel={t(`common.${item.afterLabel}`)}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl bg-red-950/20 border border-red-800/30 space-y-1.5">
+                    <p className="text-xs text-red-200/90 font-light leading-relaxed">
+                      {item.beforeText}
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30 space-y-1.5">
+                    <p className="text-xs text-emerald-200/90 font-light leading-relaxed">
+                      {item.afterText}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 4. PROJECT SHOWCASE SECTION (STRUCTURED PLACEHOLDERS) */}
+      {activeTab === 'showcase' && (
         <div className="space-y-8">
           <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
             <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-              PORTFOLIO SHOWCASE
+              {t('common.portfolioShowcase')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-              E-Commerce Project Showcase
+              {t('common.ecommerceProjectShowcase')}
             </h3>
             <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
-              Structured placeholders for custom e-commerce platforms and retail architectures.
+              {t('common.ecommerceProjectsDescription')}
             </p>
           </div>
 
@@ -509,31 +698,31 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
                     {proj.description}
                   </p>
 
-                  {/* Placeholder Frames Matrix */}
+                  {/* Project Images Matrix */}
                   <div className="grid grid-cols-2 gap-3 pt-2">
                     <div className="p-4 rounded-xl bg-black/80 border border-white/10 text-center space-y-1">
-                      <div className="text-[10px] font-mono text-[#D4AF37] uppercase">STOREFRONT</div>
-                      <div className="text-xs font-mono text-[#A7A7A7]">{proj.mainImagePlaceholder}</div>
+                      <div className="text-[10px] font-mono text-[#D4AF37] uppercase">{t('common.storefront')}</div>
+                      <img src={proj.mainImage} alt="Storefront" className="w-full h-16 object-cover rounded" />
                     </div>
 
                     <div className="p-4 rounded-xl bg-black/80 border border-white/10 text-center space-y-1">
-                      <div className="text-[10px] font-mono text-[#D4AF37] uppercase">MOBILE</div>
-                      <div className="text-xs font-mono text-[#A7A7A7]">{proj.mobileScreensPlaceholder}</div>
+                      <div className="text-[10px] font-mono text-[#D4AF37] uppercase">{t('common.mobile')}</div>
+                      <img src={proj.mobile} alt="Mobile" className="w-full h-16 object-cover rounded" />
                     </div>
 
                     <div className="p-4 rounded-xl bg-black/80 border border-white/10 text-center space-y-1">
-                      <div className="text-[10px] font-mono text-[#D4AF37] uppercase">DASHBOARD</div>
-                      <div className="text-xs font-mono text-[#A7A7A7]">{proj.dashboardPlaceholder}</div>
+                      <div className="text-[10px] font-mono text-[#D4AF37] uppercase">{t('common.dashboard')}</div>
+                      <img src={proj.dashboard} alt="Dashboard" className="w-full h-16 object-cover rounded" />
                     </div>
 
                     <div className="p-4 rounded-xl bg-black/80 border border-white/10 text-center space-y-1">
-                      <div className="text-[10px] font-mono text-[#D4AF37] uppercase">ANALYTICS</div>
-                      <div className="text-xs font-mono text-[#A7A7A7]">{proj.analyticsPlaceholder}</div>
+                      <div className="text-[10px] font-mono text-[#D4AF37] uppercase">{t('common.analytics')}</div>
+                      <img src={proj.analytics} alt="Analytics" className="w-full h-16 object-cover rounded" />
                     </div>
                   </div>
 
                   <div className="space-y-2 pt-2 border-t border-white/10">
-                    <div className="text-[10px] font-mono text-[#A7A7A7] uppercase">Integrated Services:</div>
+                    <div className="text-[10px] font-mono text-[#A7A7A7] uppercase">{t('common.servicesImplemented')}</div>
                     <div className="flex flex-wrap gap-2">
                       {proj.servicesUsed.map((srv, sIdx) => (
                         <span key={sIdx} className="px-2.5 py-1 rounded-md bg-white/[0.04] text-[10px] font-mono text-[#E6C766]">
@@ -545,8 +734,8 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
                 </div>
 
                 <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-[#D4AF37]">
-                  <span>Editable Project Specification</span>
-                  <span>Ready for Live Data</span>
+                  <span>{t('common.editableProjectSpecification')}</span>
+                  <span>{t('common.readyForLiveData')}</span>
                 </div>
               </div>
             ))}
@@ -558,15 +747,15 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
       <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0e0e14]/95 via-[#0a0a0d]/95 to-[#14120a]/95 border border-[#D4AF37]/40 backdrop-blur-2xl text-center space-y-6 gold-glow">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono text-[#E6C766] uppercase tracking-widest">
           <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-          <span>START YOUR E-COMMERCE ARCHITECTURE</span>
+          <span>{t('common.buildYourCommerceArchitecture')}</span>
         </div>
 
         <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-white">
-          Ready to Scale Your Online Store?
+          {t('common.readyToEngineerCommerceSolutions')}
         </h3>
 
         <p className="text-sm text-[#A7A7A7] font-light max-w-2xl mx-auto leading-relaxed">
-          Consult our technical architecture team to map out your online store development, payment gateway integration, and high-concurrency order management system.
+          {t('common.bookCommerceConsultation')}
         </p>
 
         <div className="pt-2">
@@ -578,7 +767,7 @@ export const EcommerceSolutions: React.FC<EcommerceSolutionsProps> = ({ onOpenBo
             onMouseEnter={() => soundManager.playHover()}
             className="px-8 py-4 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#E6C766] to-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider font-display gold-glow hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all cursor-pointer inline-flex items-center gap-2"
           >
-            <span>Book a Meeting</span>
+            <span>{t('common.bookMeeting')}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

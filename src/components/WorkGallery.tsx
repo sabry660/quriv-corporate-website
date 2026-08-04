@@ -327,9 +327,8 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({ onOpenBookMeeting }) =
               </div>
             </div>
 
-            {/* Slide Body: Large Placeholder Image / Frame */}
+            {/* Slide Body: Large Image / Frame */}
             <div className="relative rounded-2xl bg-black/90 border border-white/10 overflow-hidden min-h-[320px] sm:min-h-[380px] flex items-center justify-center group">
-              {/* Image Loading Attempt with High-Tech Glass Placeholder Fallback */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#121018] via-[#09090e] to-[#161208] flex flex-col items-center justify-center p-8 text-center space-y-4">
                 <div className="w-20 h-20 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] group-hover:scale-110 transition-transform duration-500">
                   {items[currentIndex].type === 'video' ? (
@@ -444,7 +443,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({ onOpenBookMeeting }) =
                 <div className="text-xs font-mono text-[#D4AF37]">{selectedItem.industry}</div>
               </div>
 
-              {/* Large Project Image / Video Placeholder Display */}
+              {/* Large Project Image / Video Display */}
               <div className="p-8 rounded-2xl bg-black/80 border border-white/10 text-center space-y-3">
                 <div className="text-xs font-mono text-[#D4AF37] uppercase">
                   SOURCE FILE: {selectedItem.imagePath}
@@ -484,7 +483,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({ onOpenBookMeeting }) =
                     }}
                     className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#E6C766] to-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider font-display hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-all cursor-pointer flex items-center gap-2"
                   >
-                    <span>Book a Meeting</span>
+                    <span>{t('common.bookMeeting')}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>

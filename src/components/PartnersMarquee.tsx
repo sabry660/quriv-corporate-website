@@ -1,6 +1,8 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { ExternalLink, ShieldCheck, Sparkles } from 'lucide-react';
 import { soundManager } from '../utils/sound';
+import { useI18n } from '../utils/i18n';
 
 export interface Partner {
   id: string;
@@ -53,6 +55,48 @@ export const PARTNERS_LIST: Partner[] = [
     logoPath: '/partners/Clicktripz.png',
     category: 'Travel Media & Tech',
   },
+  {
+    id: 'expedia',
+    name: 'Expedia',
+    url: 'https://www.expedia.com',
+    logoPath: '/partners/expedia.png',
+    category: 'Global Travel Platform',
+  },
+  {
+    id: 'airbnb',
+    name: 'Airbnb',
+    url: 'https://www.airbnb.com',
+    logoPath: '/partners/airbnb.png',
+    category: 'Accommodation Sharing',
+  },
+  {
+    id: 'hotels',
+    name: 'Hotels.com',
+    url: 'https://www.hotels.com',
+    logoPath: '/partners/hotels.png',
+    category: 'Hotel Booking',
+  },
+  {
+    id: 'priceline',
+    name: 'Priceline',
+    url: 'https://www.priceline.com',
+    logoPath: '/partners/priceline.png',
+    category: 'Travel Deals',
+  },
+  {
+    id: 'kayak',
+    name: 'KAYAK',
+    url: 'https://www.kayak.com',
+    logoPath: '/partners/kayak.png',
+    category: 'Travel Search Engine',
+  },
+  {
+    id: 'hostelworld',
+    name: 'Hostelworld',
+    url: 'https://www.hostelworld.com',
+    logoPath: '/partners/hostelworld.png',
+    category: 'Budget Accommodation',
+  },
 ];
 
 interface PartnersMarqueeProps {
@@ -60,6 +104,7 @@ interface PartnersMarqueeProps {
 }
 
 export const PartnersMarquee: React.FC<PartnersMarqueeProps> = () => {
+  const { t } = useI18n();
   // Duplicate arrays for smooth loop transitions
   const row1Items = [...PARTNERS_LIST, ...PARTNERS_LIST, ...PARTNERS_LIST];
   const row2Items = [...PARTNERS_LIST].reverse().concat([...PARTNERS_LIST].reverse(), [...PARTNERS_LIST].reverse());
@@ -76,10 +121,10 @@ export const PartnersMarquee: React.FC<PartnersMarqueeProps> = () => {
       <div className="text-center max-w-xl mx-auto space-y-3">
         <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono text-[#E6C766] uppercase tracking-widest">
           <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-          <span>OFFICIAL SOFTWARE & MEDIA ALLIANCES</span>
+          <span>{t('common.officialAlliances')}</span>
         </div>
         <p className="text-xs sm:text-sm text-[#A7A7A7] font-light leading-relaxed">
-          Integrated directly into global reservation networks, rate distribution engines, and digital travel marketplaces.
+          {t('common.alliancesDescription')}
         </p>
       </div>
 
@@ -120,7 +165,7 @@ export const PartnersMarquee: React.FC<PartnersMarqueeProps> = () => {
       {/* Bottom Trust Badge */}
       <div className="flex items-center justify-center gap-2 pt-4 text-xs font-mono text-[#A7A7A7]">
         <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
-        <span>DIRECT API & RESERVATION INTEGRATIONS ACTIVE</span>
+        <span>{t('common.directApiIntegrations')}</span>
       </div>
 
       {/* Embedded CSS for GPU Keyframe Infinite Marquees */}
@@ -160,41 +205,39 @@ interface PartnerCardProps {
   onClick: () => void;
 }
 
-const PartnerCard: React.FC<PartnerCardProps> = ({ partner, onClick }) => {
+const PartnerCard: React.FC<{ partner: Partner; onClick: () => void }> = ({ partner, onClick }) => {
+  const [imageError, setImageError] = React.useState(false);
+
   return (
-    <div
+    <motion.div
+      whileHover={{ scale: 1.08, y: -3 }}
+      whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      onMouseEnter={() => soundManager.playHover()}
-      className="flex-shrink-0 min-w-[220px] sm:min-w-[260px] px-6 py-4 rounded-2xl bg-black/40 border border-white/10 hover:border-[#D4AF37] backdrop-blur-md transition-all duration-300 cursor-pointer group flex items-center justify-between gap-4 gold-glow hover:scale-105"
+      className="relative flex flex-col items-center justify-between px-6 py-5 rounded-2xl bg-[#101010]/80 border border-white/[0.08] hover:border-[#D4AF37]/40 backdrop-blur-md cursor-pointer transition-all group min-w-[180px] sm:min-w-[220px]"
     >
-      <div className="flex flex-col">
-        <span className="text-[9px] font-mono text-[#D4AF37] uppercase tracking-wider">
-          {partner.category}
-        </span>
-        <div className="h-8 flex items-center pt-1">
-          <img
-            src={partner.logoPath}
-            alt={partner.name}
-            className="max-h-7 max-w-[140px] object-contain filter brightness-90 group-hover:brightness-110 transition-all"
-            onError={(e) => {
-              // Hide image on error and display typography logo
-              (e.target as HTMLElement).style.display = 'none';
-              const textFallback = (e.target as HTMLElement).nextElementSibling;
-              if (textFallback) (textFallback as HTMLElement).style.display = 'block';
-            }}
-          />
-          <span
-            className="text-lg font-bold font-display text-white group-hover:text-[#E6C766] transition-colors"
-            style={{ display: 'none' }}
-          >
-            {partner.name}
+      {!imageError && partner.logoPath ? (
+        <img
+          src={partner.logoPath}
+          alt={partner.name}
+          className="w-full h-20 object-contain flex-1"
+          onError={() => setImageError(true)}
+        />
+      ) : (
+        <div className="w-full h-20 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center flex-1">
+          <span className="text-sm font-bold text-[#D4AF37] font-mono">
+            {partner.name.substring(0, 2).toUpperCase()}
           </span>
         </div>
+      )}
+      <div className="flex flex-col items-center text-center w-full pt-3 border-t border-white/[0.05]">
+        <span className="text-xs font-bold text-white truncate group-hover:text-[#E6C766] transition-colors">
+          {partner.name}
+        </span>
+        <span className="text-[9px] text-[#A7A7A7] truncate font-mono">
+          {partner.category}
+        </span>
       </div>
-
-      <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 group-hover:border-[#D4AF37] group-hover:bg-[#D4AF37]/20 flex items-center justify-center text-[#A7A7A7] group-hover:text-[#E6C766] transition-all">
-        <ExternalLink className="w-3.5 h-3.5" />
-      </div>
-    </div>
+      <ExternalLink className="w-3 h-3 text-[#A7A7A7] group-hover:text-[#D4AF37] transition-colors shrink-0 absolute top-3 right-3" />
+    </motion.div>
   );
 };

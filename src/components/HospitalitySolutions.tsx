@@ -3,39 +3,29 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   Globe,
   Smartphone,
-  LayoutDashboard,
-  TrendingUp,
-  Search,
-  MapPin,
-  BarChart3,
-  Calendar,
-  ChevronRight,
-  ChevronLeft,
-  ExternalLink,
-  Sparkles,
-  Play,
-  Send,
-  Clock,
-  User,
-  Mail,
-  Phone,
-  Building2,
+  Monitor,
+  Tablet,
   Check,
   ArrowRight,
+  ChevronLeft,
   Layers,
   SlidersHorizontal,
   CheckCircle2,
   Image as ImageIcon,
-  Monitor,
-  Tablet,
-  FileText,
+  ExternalLink,
+  Calendar,
+  MapPin,
+  Star,
   MessageSquare,
-  Award,
-  ShieldCheck,
-  Video
+  ChevronRight,
+  LayoutDashboard,
+  TrendingUp,
+  Search,
+  BarChart3
 } from 'lucide-react';
 import { soundManager } from '../utils/sound';
 import { useI18n } from '../utils/i18n';
+import { BeforeAfterSlider } from './BeforeAfterSlider';
 
 /* ========================================================================
    TYPES & DATA FOR HOSPITALITY SOLUTIONS
@@ -44,7 +34,7 @@ import { useI18n } from '../utils/i18n';
 export interface HospitalityProjectItem {
   id: string;
   name: string;
-  country: string;
+  location: string;
   description: string;
   servicesUsed: string[];
   mainImage: string;
@@ -56,7 +46,7 @@ export interface HospitalityTestimonialItem {
   clientName: string;
   position: string;
   company: string;
-  photoPlaceholder: string;
+  photo: string;
   review: string;
 }
 
@@ -226,84 +216,93 @@ export const HOSPITALITY_DATA = {
   beforeAfter: [
     {
       metricTitle: 'Guest Check-In & Arrivals',
-      beforeLabel: 'Traditional Operations',
+      beforeLabel: 'traditionalOperations',
       beforeText: 'Manual front desk registration queues, physical key handoffs, paper form filling, and waiting times during peak arrivals.',
-      afterLabel: 'Digitally Transformed Hotel',
+      afterLabel: 'digitallyTransformedHotel',
       afterText: 'Sub-minute digital mobile check-in, keyless digital room entry, and instant room assignment via guest smartphone.',
+      beforeImage: '/projects/hospitality-before-1.jpg',
+      afterImage: '/projects/hospitality-after-1.jpg',
     },
     {
       metricTitle: 'Guest Service Requests',
-      beforeLabel: 'Traditional Operations',
+      beforeLabel: 'traditionalOperations',
       beforeText: 'In-room phone calls to reception, delayed room service notes, manual laundry requests, and phone busy signals.',
-      afterLabel: 'Digitally Transformed Hotel',
+      afterLabel: 'digitallyTransformedHotel',
       afterText: 'Instant web portal service ordering for room dining, spa, laundry, and maintenance with live order status updates.',
+      beforeImage: '/projects/hospitality-before-2.jpg',
+      afterImage: '/projects/hospitality-after-2.jpg',
     },
     {
       metricTitle: 'Website & Direct Bookings',
-      beforeLabel: 'Traditional Operations',
+      beforeLabel: 'traditionalOperations',
       beforeText: 'Heavy reliance on third-party booking channels with high commissions, slow website loading, and complex booking steps.',
-      afterLabel: 'Digitally Transformed Hotel',
+      afterLabel: 'digitallyTransformedHotel',
       afterText: 'Fast luxury hotel website with streamlined direct booking funnel, local currency support, and direct payment processing.',
+      beforeImage: '/projects/hospitality-before-3.jpg',
+      afterImage: '/projects/hospitality-after-3.jpg',
     },
     {
       metricTitle: 'Hotel Management & Reporting',
-      beforeLabel: 'Traditional Operations',
+      beforeLabel: 'traditionalOperations',
       beforeText: 'Disconnected spreadsheets, paper daily logs, delayed department updates, and manual monthly report consolidation.',
-      afterLabel: 'Digitally Transformed Hotel',
+      afterLabel: 'digitallyTransformedHotel',
       afterText: 'Unified management dashboard connecting reservations, guests, staff tasks, and real-time operational reports.',
+      beforeImage: '/projects/hospitality-before-4.jpg',
+      afterImage: '/projects/hospitality-after-4.jpg',
     },
   ],
 
-  /* PROJECT SHOWCASE PLACEHOLDERS */
+  /* PROJECT SHOWCASE */
   projects: [
     {
       id: 'proj-1',
-      name: '[ Hotel Partner Name ]',
-      country: '[ Country / Location ]',
+      name: '[ Luxury Hotel Partner ]',
+      location: '[ Destination ]',
       description:
         'Complete digital transformation featuring a custom direct-booking website, keyless guest portal, and unified staff dashboard.',
       servicesUsed: ['Website Development', 'Guest Portal', 'Dashboard', 'SEO', 'Analytics'],
-      mainImage: '/projects/project-placeholder-1.jpg',
+      mainImage: '/projects/hotel-1.jpg',
       gallery: [
-        '/projects/project-1-a.jpg',
-        '/projects/project-1-b.jpg',
-        '/projects/project-1-c.jpg',
+        '/projects/hotel-1-a.jpg',
+        '/projects/hotel-1-b.jpg',
+        '/projects/hotel-1-c.jpg',
       ],
     },
     {
       id: 'proj-2',
-      name: '[ Luxury Resort Partner ]',
-      country: '[ Country / Location ]',
+      name: '[ Resort Collection Partner ]',
+      location: '[ Coastal Region ]',
       description:
         'Luxury resort web property with integrated guest service portal, monthly marketing campaigns, and Google Business profile management.',
       servicesUsed: ['Website Development', 'Guest Portal', 'Marketing', 'Google Business', 'Monthly Consulting'],
-      mainImage: '/projects/project-placeholder-2.jpg',
+      mainImage: '/projects/hotel-2.jpg',
       gallery: [
-        '/projects/project-2-a.jpg',
-        '/projects/project-2-b.jpg',
+        '/projects/hotel-2-a.jpg',
+        '/projects/hotel-2-b.jpg',
+        '/projects/hotel-2-c.jpg',
       ],
     },
   ] as HospitalityProjectItem[],
 
-  /* TESTIMONIAL PLACEHOLDERS */
+  /* TESTIMONIALS */
   testimonials: [
     {
       id: 'test-1',
       clientName: '[ Partner Executive Name ]',
       position: '[ General Manager ]',
       company: '[ Luxury Hotel Group ]',
-      photoPlaceholder: '/projects/testimonial-placeholder-1.jpg',
+      photo: '/projects/testimonial-1.jpg',
       review:
-        'Feedback placeholder from hotel management regarding the seamless digital transformation, elevated guest feedback, and increased direct bookings achieved through Quriv software solutions.',
+        'Feedback from hotel management regarding the seamless digital transformation, elevated guest feedback, and increased direct bookings achieved through Quriv software solutions.',
     },
     {
       id: 'test-2',
       clientName: '[ Operations Director Name ]',
       position: '[ Operations Director ]',
       company: '[ Coastal Resort Collection ]',
-      photoPlaceholder: '/projects/testimonial-placeholder-2.jpg',
+      photo: '/projects/testimonial-2.jpg',
       review:
-        'Testimonial placeholder highlighting the efficiency gains of the unified management dashboard and the convenience of the guest mobile portal.',
+        'Testimonial highlighting the efficiency gains of the unified management dashboard and the convenience of the guest mobile portal.',
     },
   ] as HospitalityTestimonialItem[],
 
@@ -353,29 +352,6 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
 
   // Active Project Gallery modal or view
   const [selectedProject, setSelectedProject] = useState<HospitalityProjectItem | null>(null);
-
-  // Meeting Form State
-  const [formData, setFormData] = useState({
-    fullName: '',
-    company: '',
-    email: '',
-    phone: '',
-    meetingDate: '',
-    meetingTime: '',
-    projectType: 'Hospitality Digital Transformation',
-    message: '',
-  });
-  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    soundManager.playClick();
-    setFormSubmitted(true);
-  };
 
   // Helper for gallery next/prev
   const currentGalleryList = HOSPITALITY_DATA.galleryCarousels[activeGalleryCat] || [];
@@ -433,7 +409,7 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
               onMouseEnter={() => soundManager.playHover()}
               className="px-6 py-3.5 rounded-full bg-white/[0.05] border border-white/15 text-white font-medium text-xs font-mono uppercase tracking-wider hover:bg-white/[0.1] hover:border-white/30 transition-all cursor-pointer"
             >
-              Explore 8 Core Services
+              {t('common.exploreServices', { count: Object.keys(HOSPITALITY_DATA.services).length })}
             </button>
           </div>
         </div>
@@ -441,12 +417,12 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
         {/* Floating Quick Navigation Tabs */}
         <div className="relative z-10 mt-10 pt-8 border-t border-white/10 flex flex-wrap items-center gap-2">
           {[
-            { id: 'services', label: '8 Core Services' },
-            { id: 'beforeAfter', label: 'Operational Transformation' },
-            { id: 'projects', label: 'Projects' },
-            { id: 'testimonials', label: 'Partner Feedback' },
-            { id: 'gallery', label: 'Media Gallery' },
-            { id: 'meeting', label: 'Book a Meeting' },
+            { id: 'services', label: `${Object.keys(HOSPITALITY_DATA.services).length} ${t('common.coreServices')}` },
+            { id: 'beforeAfter', label: t('common.operationalTransformation') },
+            { id: 'projects', label: t('common.projects') },
+            { id: 'gallery', label: t('common.gallery') },
+            { id: 'testimonials', label: t('common.testimonials') },
+            { id: 'faq', label: t('common.faq') },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -587,10 +563,10 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
                         <Globe className="w-6 h-6" />
                       </div>
                       <div className="text-xs font-mono text-[#D4AF37] uppercase">
-                        {previewDevice.toUpperCase()} PREVIEW PLACEHOLDER
+                        {previewDevice.toUpperCase()} PREVIEW
                       </div>
                       <p className="text-xs text-[#A7A7A7] font-light max-w-sm">
-                        Website Preview Placeholder ({previewDevice} layout) showcasing direct booking bar, room suites catalog, and high-resolution visual storytelling.
+                        Website Preview ({previewDevice} layout) showcasing direct booking bar, room suites catalog, and high-resolution visual storytelling.
                       </p>
                     </div>
                   </div>
@@ -607,7 +583,7 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
                     {HOSPITALITY_DATA.services.websiteDev.screenshots.map((shot, idx) => (
                       <div key={idx} className="p-4 rounded-xl bg-white/[0.03] border border-white/10 space-y-2 group">
                         <div className="aspect-[16/9] rounded-lg bg-black border border-white/10 flex items-center justify-center text-xs font-mono text-[#A7A7A7]">
-                          <span>{t('industries.screenshotPlaceholder')} 0{idx + 1}</span>
+                          <span>{t('industries.screenshot')} 0{idx + 1}</span>
                         </div>
                         <div className="text-[11px] font-mono text-[#A7A7A7] group-hover:text-white transition-colors">
                           {t('industries.suiteBookingInterface')}
@@ -649,17 +625,18 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
                 ))}
               </div>
 
-              {/* Portal Screenshots Placeholders */}
+              {/* Portal Screenshots */}
               <div className="space-y-3 pt-2">
                 <div className="text-xs font-mono text-[#A7A7A7] uppercase tracking-wider">
                   {t('industries.guestPortalMobileScreenshots')}
                 </div>
+
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {HOSPITALITY_DATA.services.guestPortal.screenshots.map((shot, idx) => (
                     <div key={idx} className="p-4 rounded-2xl bg-black/80 border border-white/10 text-center space-y-3">
                       <div className="aspect-[9/16] rounded-xl bg-[#050508] border border-white/10 flex items-center justify-center p-4">
                         <div className="text-xs font-mono text-[#A7A7A7]">
-                          {t('industries.screenshotPlaceholder')} 0{idx + 1}
+                          {t('industries.screenshot')} 0{idx + 1}
                         </div>
                       </div>
                       <div className="text-xs font-mono text-[#E6C766]">{t('industries.digitalKeyAccess')}</div>
@@ -697,16 +674,17 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
                 ))}
               </div>
 
-              {/* Dashboard Screenshots Placeholders */}
+              {/* Dashboard Screenshots */}
               <div className="text-xs font-mono text-[#A7A7A7] uppercase tracking-wider mb-3">
                 {t('industries.dashboardScreenshots')}
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {HOSPITALITY_DATA.services.dashboard.screenshots.map((shot, idx) => (
                   <div key={idx} className="p-5 rounded-2xl bg-black/80 border border-white/10 space-y-3">
                     <div className="aspect-[16/9] rounded-xl bg-[#050508] border border-white/10 flex items-center justify-center p-4">
                       <div className="text-xs font-mono text-[#A7A7A7] text-center">
-                        {t('industries.screenshotPlaceholder')} 0{idx + 1}
+                        {t('industries.screenshot')} 0{idx + 1}
                       </div>
                     </div>
                     <div className="text-xs font-mono text-white flex items-center justify-between">
@@ -837,39 +815,35 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
         <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0c0c10]/95 via-[#08080a]/95 to-[#12100d]/95 border border-[#D4AF37]/30 backdrop-blur-2xl space-y-8">
           <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
             <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-              OPERATIONAL COMPARISON
+              {t('common.operationalComparison')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-              Before & After Digital Transformation
+              {t('common.beforeAfterTransformation')}
             </h3>
             <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
-              Comparing traditional hotel operational workflows with a fully integrated Quriv software architecture.
+              {t('common.hospitalityComparisonDescription')}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             {HOSPITALITY_DATA.beforeAfter.map((item, idx) => (
-              <div key={idx} className="p-6 rounded-2xl bg-black/70 border border-white/10 space-y-6">
+              <div key={idx} className="space-y-4">
                 <div className="text-xs font-mono text-[#D4AF37] uppercase tracking-wider border-b border-white/10 pb-3">
                   {item.metricTitle}
                 </div>
-
-                <div className="space-y-4">
-                  {/* Before Box */}
+                <BeforeAfterSlider
+                  beforeImage={item.beforeImage}
+                  afterImage={item.afterImage}
+                  beforeLabel={t(`common.${item.beforeLabel}`)}
+                  afterLabel={t(`common.${item.afterLabel}`)}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="p-4 rounded-xl bg-red-950/20 border border-red-800/30 space-y-1.5">
-                    <div className="text-[10px] font-mono text-red-400 uppercase font-bold">
-                      {item.beforeLabel}
-                    </div>
                     <p className="text-xs text-red-200/90 font-light leading-relaxed">
                       {item.beforeText}
                     </p>
                   </div>
-
-                  {/* After Box */}
                   <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30 space-y-1.5">
-                    <div className="text-[10px] font-mono text-emerald-400 uppercase font-bold">
-                      {item.afterLabel}
-                    </div>
                     <p className="text-xs text-emerald-200/90 font-light leading-relaxed">
                       {item.afterText}
                     </p>
@@ -886,13 +860,13 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
         <div className="space-y-8">
           <div className="space-y-2 border-l-2 border-[#D4AF37] pl-4">
             <span className="text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-              PROJECT PORTFOLIO
+              {t('common.projectPortfolio')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-              Hospitality Projects Showcase
+              {t('common.hospitalityProjectsShowcase')}
             </h3>
             <p className="text-sm text-[#A7A7A7] font-light max-w-2xl">
-              Bespoke digital architecture implementations across hotels and resorts.
+              {t('common.hospitalityProjectsDescription')}
             </p>
           </div>
 
@@ -904,17 +878,13 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
               >
                 <div className="space-y-4">
                   <div className="aspect-[16/9] rounded-2xl bg-[#050508] border border-white/10 flex items-center justify-center p-6 text-center overflow-hidden relative">
-                    <div className="text-xs font-mono text-[#A7A7A7]">
-                      Project Main Image Placeholder
-                      <br />
-                      ({proj.name})
-                    </div>
+                    <img src={proj.mainImage} alt={proj.name} className="w-full h-full object-cover rounded-2xl" />
                   </div>
 
                   <div className="flex items-center justify-between text-xs font-mono">
                     <span className="text-white font-bold text-lg font-display">{proj.name}</span>
                     <span className="text-[#D4AF37] px-3 py-1 rounded-full bg-white/[0.04] border border-white/10">
-                      {proj.country}
+                      {proj.location}
                     </span>
                   </div>
 
@@ -935,8 +905,8 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
                 </div>
 
                 <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-[#D4AF37]">
-                  <span>Project Gallery (Editable)</span>
-                  <span>{proj.gallery.length} Images Placeholder</span>
+                  <span>Project Gallery</span>
+                  <span>{proj.gallery.length} Images</span>
                 </div>
               </div>
             ))}
@@ -1036,7 +1006,7 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
                 <div className="aspect-[16/9] rounded-2xl bg-[#050508] border border-white/10 flex items-center justify-center p-8 relative overflow-hidden">
                   <div className="text-center space-y-2">
                     <div className="text-xs font-mono text-[#D4AF37] uppercase">
-                      /public/projects/{activeGalleryCat} Placeholder
+                      /public/projects/{activeGalleryCat}
                     </div>
                     <h4 className="text-xl font-bold font-display text-white">
                       {currentGalleryList[galleryIndex].title}
@@ -1077,202 +1047,35 @@ export const HospitalitySolutions: React.FC<HospitalitySolutionsProps> = ({ onOp
         </div>
       )}
 
-      {/* 7. BOOK A MEETING CTA & FORM */}
+      {/* 7. BOOK A MEETING CTA */}
       <div id="book-hospitality-meeting" className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0e0e14]/95 via-[#09090d]/95 to-[#121008]/95 border border-[#D4AF37]/40 backdrop-blur-2xl space-y-8 gold-glow">
         <div className="space-y-3 max-w-2xl">
           <div className="inline-flex items-center gap-2 text-xs font-mono text-[#E6C766]">
             <Calendar className="w-4 h-4" />
-            <span>EXECUTIVE CONSULTATION</span>
+            <span>{t('common.executiveConsultation')}</span>
           </div>
-          <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-white tracking-tight">
-            Book a Hospitality Consultation
+          <h3 className="text-2xl font-bold font-display text-white">
+            {t('common.bookHospitalityConsultation')}
           </h3>
           <p className="text-sm text-[#A7A7A7] font-light leading-relaxed">
-            Discuss your hotel or resort digital transformation directly with our lead software architects.
+            {t('common.discussDigitalTransformation')}
           </p>
         </div>
 
-        {formSubmitted ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="p-8 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 text-center space-y-4"
+        <div className="pt-2">
+          <button
+            onClick={() => {
+              soundManager.playClick();
+              onOpenBookMeeting();
+            }}
+            onMouseEnter={() => soundManager.playHover()}
+            className="px-8 py-4 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#E6C766] to-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider font-display gold-glow hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] transition-all cursor-pointer flex items-center gap-2"
           >
-            <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
-              <Check className="w-6 h-6" />
-            </div>
-            <h4 className="text-xl font-bold font-display text-white">Consultation Request Received</h4>
-            <p className="text-xs text-emerald-200/90 font-light max-w-md mx-auto">
-              Thank you, {formData.fullName}. Our hospitality architecture team will review your details and confirm your preferred date ({formData.meetingDate || 'As scheduled'}).
-            </p>
-            <button
-              onClick={() => setFormSubmitted(false)}
-              className="px-5 py-2 rounded-xl bg-white/10 border border-white/20 text-xs font-mono text-white hover:bg-white/20 transition-all cursor-pointer"
-            >
-              Submit Another Request
-            </button>
-          </motion.div>
-        ) : (
-          <form onSubmit={handleFormSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              
-              {/* Full Name */}
-              <div className="space-y-2">
-                <label className="text-xs font-mono text-[#A7A7A7] uppercase flex items-center gap-2">
-                  <User className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Full Name *</span>
-                </label>
-                <input
-                  type="text"
-                  name="fullName"
-                  required
-                  value={formData.fullName}
-                  onChange={handleFormChange}
-                  placeholder="e.g. Alexander Vance"
-                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-sm text-white placeholder:text-white/30 focus:border-[#D4AF37] focus:outline-none transition-all"
-                />
-              </div>
-
-              {/* Company */}
-              <div className="space-y-2">
-                <label className="text-xs font-mono text-[#A7A7A7] uppercase flex items-center gap-2">
-                  <Building2 className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Company / Hotel Property *</span>
-                </label>
-                <input
-                  type="text"
-                  name="company"
-                  required
-                  value={formData.company}
-                  onChange={handleFormChange}
-                  placeholder="e.g. Grand Horizon Hotel Group"
-                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-sm text-white placeholder:text-white/30 focus:border-[#D4AF37] focus:outline-none transition-all"
-                />
-              </div>
-
-              {/* Email */}
-              <div className="space-y-2">
-                <label className="text-xs font-mono text-[#A7A7A7] uppercase flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Email Address *</span>
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleFormChange}
-                  placeholder="alexander@hotelgroup.com"
-                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-sm text-white placeholder:text-white/30 focus:border-[#D4AF37] focus:outline-none transition-all"
-                />
-              </div>
-
-              {/* Phone */}
-              <div className="space-y-2">
-                <label className="text-xs font-mono text-[#A7A7A7] uppercase flex items-center gap-2">
-                  <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Phone Number</span>
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleFormChange}
-                  placeholder="+1 (555) 000-0000"
-                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-sm text-white placeholder:text-white/30 focus:border-[#D4AF37] focus:outline-none transition-all"
-                />
-              </div>
-
-              {/* Preferred Date */}
-              <div className="space-y-2">
-                <label className="text-xs font-mono text-[#A7A7A7] uppercase flex items-center gap-2">
-                  <Calendar className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Preferred Meeting Date</span>
-                </label>
-                <input
-                  type="date"
-                  name="meetingDate"
-                  value={formData.meetingDate}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-sm text-white focus:border-[#D4AF37] focus:outline-none transition-all"
-                />
-              </div>
-
-              {/* Preferred Time */}
-              <div className="space-y-2">
-                <label className="text-xs font-mono text-[#A7A7A7] uppercase flex items-center gap-2">
-                  <Clock className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Preferred Time</span>
-                </label>
-                <input
-                  type="time"
-                  name="meetingTime"
-                  value={formData.meetingTime}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-sm text-white focus:border-[#D4AF37] focus:outline-none transition-all"
-                />
-              </div>
-            </div>
-
-            {/* Project Type */}
-            <div className="space-y-2">
-              <label className="text-xs font-mono text-[#A7A7A7] uppercase flex items-center gap-2">
-                <Layers className="w-3.5 h-3.5 text-[#D4AF37]" />
-                <span>Project Focus</span>
-              </label>
-              <select
-                name="projectType"
-                value={formData.projectType}
-                onChange={handleFormChange}
-                className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-sm text-white focus:border-[#D4AF37] focus:outline-none transition-all"
-              >
-                <option value="Hospitality Digital Transformation" className="bg-black text-white">
-                  Hospitality Digital Transformation (Full Suite)
-                </option>
-                <option value="Website Development & Direct Bookings" className="bg-black text-white">
-                  Website Development & Direct Bookings
-                </option>
-                <option value="Guest Portal & Concierge App" className="bg-black text-white">
-                  Guest Portal & Concierge App
-                </option>
-                <option value="Management Dashboard & Analytics" className="bg-black text-white">
-                  Management Dashboard & Analytics
-                </option>
-                <option value="Monthly Marketing & SEO Services" className="bg-black text-white">
-                  Monthly Marketing & SEO Services
-                </option>
-              </select>
-            </div>
-
-            {/* Message */}
-            <div className="space-y-2">
-              <label className="text-xs font-mono text-[#A7A7A7] uppercase flex items-center gap-2">
-                <MessageSquare className="w-3.5 h-3.5 text-[#D4AF37]" />
-                <span>Message & Project Scope</span>
-              </label>
-              <textarea
-                name="message"
-                rows={4}
-                value={formData.message}
-                onChange={handleFormChange}
-                placeholder="Share details about your hotel property, current software setup, and target timelines..."
-                className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-sm text-white placeholder:text-white/30 focus:border-[#D4AF37] focus:outline-none transition-all"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              onMouseEnter={() => soundManager.playHover()}
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#E6C766] to-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider font-display gold-glow hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all cursor-pointer flex items-center justify-center gap-2"
-            >
-              <span>Submit Meeting Request</span>
-              <Send className="w-4 h-4" />
-            </button>
-          </form>
-        )}
+            <span>{t('common.bookMeeting')}</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
-
     </div>
   );
 };

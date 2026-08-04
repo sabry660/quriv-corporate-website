@@ -40,8 +40,51 @@ class SoundArchitecture {
     if (this.ambientAudio) {
       if (muted) {
         this.ambientAudio.pause();
+        this.ambientAudio.currentTime = 0;
       } else {
         this.ambientAudio.play().catch(() => {});
+      }
+    }
+  }
+
+  public async playAmbient() {
+    if (this.isMuted) {
+      console.log('Audio is muted, cannot play ambient');
+      return;
+    }
+    
+    // Initialize audio context first
+    this.initContext();
+    
+    if (!this.ambientAudio) {
+      const audio = this.audioCache.get('ambient');
+      if (audio) {
+        this.ambientAudio = audio.cloneNode() as HTMLAudioElement;
+        this.ambientAudio.loop = true;
+        this.ambientAudio.volume = 0.7;
+        console.log('Created ambient audio element with volume 0.7');
+      } else {
+        console.error('Ambient audio not found in cache');
+        return;
+      }
+    }
+    
+    if (this.ambientAudio) {
+      try {
+        // Resume audio context if suspended (required for autoplay policy)
+        if (this.ctx && this.ctx.state === 'suspended') {
+          await this.ctx.resume();
+        }
+        
+        if (this.ambientAudio.paused) {
+          await this.ambientAudio.play();
+          console.log('Ambient audio playing successfully at volume:', this.ambientAudio.volume);
+        } else {
+          console.log('Ambient audio already playing');
+        }
+      } catch (e) {
+        console.error('Failed to play ambient audio:', e);
+        console.error('This is likely due to browser autoplay policy. Audio will play on first user interaction.');
       }
     }
   }

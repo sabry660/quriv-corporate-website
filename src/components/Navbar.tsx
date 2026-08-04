@@ -8,7 +8,6 @@ import {
   UserPlus,
   Volume2,
   VolumeX,
-  Eye,
   ChevronDown,
   Languages,
 } from 'lucide-react';
@@ -23,10 +22,9 @@ interface NavbarProps {
   onOpenCreateAccount: () => void;
   soundEnabled: boolean;
   onToggleSound: () => void;
-  reducedMotion: boolean;
-  onToggleReducedMotion: () => void;
   selectedLanguage: LanguageCode;
   onChangeLanguage: (lang: LanguageCode) => void;
+  onOpenLogoPopup: () => void;
 }
 
 const NAV_LINKS: NavLinkItem[] = [
@@ -51,10 +49,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenCreateAccount,
   soundEnabled,
   onToggleSound,
-  reducedMotion,
-  onToggleReducedMotion,
   selectedLanguage,
   onChangeLanguage,
+  onOpenLogoPopup,
 }) => {
   const { t, dir } = useI18n();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -77,6 +74,20 @@ export const Navbar: React.FC<NavbarProps> = ({
     soundManager.playClick();
     onNavigate(id);
     setMobileMenuOpen(false);
+    
+    // Ensure scroll happens after menu closes
+    setTimeout(() => {
+      const targetElement = document.getElementById(id);
+      if (targetElement) {
+        const navOffset = 80;
+        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - navOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    }, 100);
   };
 
   return (
@@ -90,13 +101,22 @@ export const Navbar: React.FC<NavbarProps> = ({
     >
       <div className="max-w-[1600px] mx-auto px-6 md:px-10 flex items-center justify-between">
         {/* LOGO */}
-        <button
-          onClick={() => handleLinkClick('hero')}
+        <motion.button
+          onClick={() => {
+            soundManager.playClick();
+            onOpenLogoPopup();
+          }}
           onMouseEnter={() => soundManager.playHover()}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           className="flex items-center gap-3 group text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
           aria-label="Quriv Technologies Home"
         >
-          <div className="relative w-9 h-9 flex items-center justify-center rounded-lg bg-[#101010] border border-[#D4AF37]/30 group-hover:border-[#D4AF37] transition-all duration-300 gold-glow overflow-hidden">
+          <motion.div
+            className="relative w-9 h-9 flex items-center justify-center rounded-lg bg-[#101010] border border-[#D4AF37]/30 group-hover:border-[#D4AF37] transition-all duration-300 gold-glow overflow-hidden"
+            whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+            transition={{ duration: 0.5 }}
+          >
             <img
               src="/logo.jpg"
               alt="Quriv Technologies Logo"
@@ -106,26 +126,32 @@ export const Navbar: React.FC<NavbarProps> = ({
                 (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
-          </div>
+          </motion.div>
           <div className="flex flex-col">
-            <span className="text-lg font-bold tracking-[0.2em] font-display uppercase text-white group-hover:text-[#E6C766] transition-colors">
+            <motion.span 
+              className="text-base font-bold tracking-[0.2em] font-display uppercase text-white group-hover:text-[#E6C766] transition-colors"
+              whileHover={{ letterSpacing: '0.25em' }}
+              transition={{ duration: 0.3 }}
+            >
               Quriv<span className="text-[#D4AF37]">.</span>
-            </span>
+            </motion.span>
             <span className="text-[9px] tracking-[0.35em] text-[#A7A7A7] uppercase -mt-1 font-mono">
               Technologies
             </span>
           </div>
-        </button>
+        </motion.button>
 
         {/* DESKTOP NAV LINKS */}
         <nav className="hidden xl:flex items-center gap-1 bg-[#101010]/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/[0.08]">
           {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.id;
             return (
-              <button
+              <motion.button
                 key={link.id}
                 onClick={() => handleLinkClick(link.id)}
                 onMouseEnter={() => soundManager.playHover()}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-300 relative ${
                   isActive
                     ? 'text-white font-semibold'
@@ -140,7 +166,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   />
                 )}
                 <span className="relative z-10">{t(link.label)}</span>
-              </button>
+              </motion.button>
             );
           })}
         </nav>
@@ -159,24 +185,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             aria-label="Toggle sound"
           >
             {soundEnabled ? <Volume2 className="w-4 h-4 text-[#D4AF37]" /> : <VolumeX className="w-4 h-4" />}
-          </button>
-
-          {/* Reduced Motion Toggle */}
-          <button
-            onClick={() => {
-              soundManager.playClick();
-              onToggleReducedMotion();
-            }}
-            onMouseEnter={() => soundManager.playHover()}
-            className={`p-2.5 rounded-full bg-[#101010] border transition-all ${
-              reducedMotion
-                ? 'border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10'
-                : 'border-white/[0.08] text-[#A7A7A7] hover:text-white hover:border-white/20'
-            }`}
-            title={reducedMotion ? 'Disable Reduced Motion' : 'Enable Reduced Motion'}
-            aria-label="Toggle reduced motion"
-          >
-            <Eye className="w-4 h-4" />
           </button>
 
           {/* Premium Language Switcher */}
@@ -229,7 +237,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#E6C766] text-[#050505] text-xs font-bold tracking-wide hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all transform hover:-translate-y-0.5 active:translate-y-0"
           >
             <Calendar className="w-3.5 h-3.5" />
-            <span>{t('nav.bookMeeting')}</span>
+            <span>{t('common.bookMeeting')}</span>
           </button>
         </div>
 
@@ -242,7 +250,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             }}
             className="px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#E6C766] text-[#050505] text-xs font-bold"
           >
-            {t('nav.bookMeeting')}
+            {t('common.bookMeeting')}
           </button>
 
           <button
@@ -307,7 +315,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#E6C766] text-xs font-bold text-[#050505]"
                 >
                   <Calendar className="w-4 h-4" />
-                  <span>{t('nav.bookMeeting')}</span>
+                  <span>{t('common.bookMeeting')}</span>
                 </button>
               </div>
 

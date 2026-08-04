@@ -14,6 +14,7 @@ export interface TechnologyItem {
   name: string;
   category: 'Frontend' | 'Backend' | 'Mobile' | 'Cloud';
   description: string;
+  iconPath?: string;
 }
 
 export interface GalleryItem {
@@ -97,10 +98,10 @@ export interface GalleryCarouselCategory {
 }
 
 export const HERO_METRICS = [
-  { value: '42+', label: 'Projects Delivered' },
-  { value: '4', label: 'Industries Served' },
-  { value: '98%', label: 'Client Satisfaction' },
-  { value: 'Alexandria, EG', label: 'Head Office' },
+  { value: '42+', label: 'Projects Delivered', labelKey: 'projectsDelivered' },
+  { value: '4', label: 'Industries Served', labelKey: 'industriesServed' },
+  { value: '98%', label: 'Client Satisfaction', labelKey: 'clientSatisfaction' },
+  { value: 'Alexandria, EG', label: 'Head Office', labelKey: 'headOffice' },
 ];
 
 export const PARTNERS_DATA: PartnerItem[] = [
@@ -114,14 +115,14 @@ export const PARTNERS_DATA: PartnerItem[] = [
 ];
 
 export const TECHNOLOGIES_LIST: TechnologyItem[] = [
-  { id: 'angular', name: 'Angular', category: 'Frontend', description: 'Enterprise-grade TypeScript framework for scalable single-page web applications.' },
-  { id: 'react', name: 'React', category: 'Frontend', description: 'Declarative component architecture for high-performance interactive user interfaces.' },
-  { id: 'node', name: 'Node.js', category: 'Backend', description: 'Asynchronous event-driven JavaScript runtime engineered for network services.' },
-  { id: 'express', name: 'Express.js', category: 'Backend', description: 'Minimalist web server framework designed for RESTful microservices and APIs.' },
-  { id: 'aspnet', name: 'ASP.NET', category: 'Backend', description: 'High-performance cross-platform framework for mission-critical enterprise backends.' },
-  { id: 'spring', name: 'Java Spring Boot', category: 'Backend', description: 'Robust application framework designed for enterprise distributed cloud backends.' },
-  { id: 'flutter', name: 'Flutter', category: 'Mobile', description: 'Multi-platform UI toolkit rendering fast cross-platform mobile and desktop software.' },
-  { id: 'aws', name: 'Amazon Web Services', category: 'Cloud', description: 'Global cloud computing infrastructure powering auto-scaling serverless deployments.' },
+  { id: 'angular', name: 'Angular', category: 'Frontend', description: 'Enterprise-grade TypeScript framework for scalable single-page web applications.', iconPath: '/stacks/angular.png' },
+  { id: 'react', name: 'React', category: 'Frontend', description: 'Declarative component architecture for high-performance interactive user interfaces.', iconPath: '/stacks/react.png' },
+  { id: 'node', name: 'Node.js', category: 'Backend', description: 'Asynchronous event-driven JavaScript runtime engineered for network services.', iconPath: '/stacks/node.png' },
+  { id: 'express', name: 'Express.js', category: 'Backend', description: 'Minimalist web server framework designed for RESTful microservices and APIs.', iconPath: '/stacks/express.png' },
+  { id: 'aspnet', name: 'ASP.NET', category: 'Backend', description: 'High-performance cross-platform framework for mission-critical enterprise backends.', iconPath: '/stacks/asp.net.png' },
+  { id: 'spring', name: 'Java Spring Boot', category: 'Backend', description: 'Robust application framework designed for enterprise distributed cloud backends.', iconPath: '/stacks/springboot.png' },
+  { id: 'flutter', name: 'Flutter', category: 'Mobile', description: 'Multi-platform UI toolkit rendering fast cross-platform mobile and desktop software.', iconPath: '/stacks/flutter.png' },
+  { id: 'aws', name: 'Amazon Web Services', category: 'Cloud', description: 'Global cloud computing infrastructure powering auto-scaling serverless deployments.', iconPath: '/stacks/aws.png' },
 ];
 
 export interface FlowStep {

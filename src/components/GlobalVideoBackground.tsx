@@ -218,19 +218,19 @@ export const GlobalVideoBackground: React.FC<GlobalVideoBackgroundProps> = ({
         >
           {/* Local Video Files */}
           <source 
-            src="/videos/hero-placeholder.mp4" 
+            src="/videos/hero.mp4" 
             type="video/mp4"
             media="(min-width: 768px)"
           />
           <source 
-            src="/videos/hero-placeholder.webm" 
+            src="/videos/hero.webm" 
             type="video/webm"
             media="(min-width: 768px)"
           />
           
           {/* Mobile-Optimized Fallback (lower quality) */}
           <source 
-            src="/videos/hero-placeholder.mp4" 
+            src="/videos/hero.mp4" 
             type="video/mp4"
             media="(max-width: 767px)"
           />

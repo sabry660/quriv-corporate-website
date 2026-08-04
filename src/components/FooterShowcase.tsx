@@ -29,7 +29,7 @@ export const FooterShowcase: React.FC<FooterShowcaseProps> = ({
   onNavigate,
   onOpenBookMeeting,
 }) => {
-  const { t } = useI18n();
+  const { t, dir } = useI18n();
   const handleBackToTop = () => {
     soundManager.playCameraTransition();
     onNavigate('hero');
@@ -57,11 +57,11 @@ export const FooterShowcase: React.FC<FooterShowcaseProps> = ({
                 className="w-full h-full object-cover"
               />
             </div>
-            <h2 className="text-4xl sm:text-6xl font-extrabold font-display tracking-tight text-white">
+            <h2 className="text-4xl sm:text-4xl font-extrabold font-display tracking-tight text-white">
               QURIV<span className="text-[#D4AF37]">.</span>
             </h2>
             <p className="text-sm sm:text-base text-[#C0C0C0] font-light leading-relaxed max-w-2xl mx-auto">
-              Pioneering bespoke software architectures, cloud transformations, and high-concurrency systems engineered for enterprise performance from our Alexandria headquarters.
+              {t('footer.footerTagline')}
             </p>
           </motion.div>
 
@@ -73,26 +73,36 @@ export const FooterShowcase: React.FC<FooterShowcaseProps> = ({
             transition={{ duration: 0.8, delay: 0.2 }}
             className="pt-2 flex items-center justify-center gap-4"
           >
-            <button
+            <motion.button
               onClick={handleBackToTop}
               onMouseEnter={() => soundManager.playHover()}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               className="px-6 py-3.5 rounded-full bg-white/5 hover:bg-[#D4AF37]/20 border border-white/15 hover:border-[#D4AF37] text-xs font-mono text-[#E6C766] hover:text-white transition-all cursor-pointer flex items-center gap-2.5 shadow-xl group gold-glow"
               title="Return to Hero Section"
             >
-              <ArrowUp className="w-4 h-4 text-[#D4AF37] group-hover:-translate-y-1 transition-transform" />
-              <span>Back to Top (Camera Flight)</span>
-            </button>
+              <motion.span
+                className="w-4 h-4 text-[#D4AF37] flex items-center justify-center"
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ArrowUp className="w-4 h-4" />
+              </motion.span>
+              <span>{t('footer.backToTop')}</span>
+            </motion.button>
 
-            <button
+            <motion.button
               onClick={() => {
                 soundManager.playClick();
                 onOpenBookMeeting();
               }}
               onMouseEnter={() => soundManager.playHover()}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               className="px-6 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#E6C766] text-black font-bold text-xs font-display uppercase tracking-wider hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all cursor-pointer"
             >
-              Book Meeting
-            </button>
+              {t('common.bookMeeting')}
+            </motion.button>
           </motion.div>
         </div>
 
@@ -102,18 +112,18 @@ export const FooterShowcase: React.FC<FooterShowcaseProps> = ({
           <div className="space-y-4">
             <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest font-bold flex items-center gap-2">
               <Layers className="w-3.5 h-3.5" />
-              <span>Quick Navigation</span>
+              <span>{t('footer.quickNavigation')}</span>
             </div>
             <ul className="space-y-2.5 font-mono text-[#A7A7A7]">
               {[
-                { id: 'hero', label: '01. Home Overview' },
-                { id: 'about', label: '02. Engineering Vision' },
-                { id: 'technologies', label: '03. Tech Stack Matrix' },
-                { id: 'process', label: '04. Development Lifecycle' },
-                { id: 'team', label: '05. Leadership & Team' },
-                { id: 'locations', label: '06. Office Locations' },
-                { id: 'faq', label: '07. Knowledge Base (FAQ)' },
-                { id: 'contact', label: '08. Get In Touch' },
+                { id: 'hero', label: t('footer.footerHomeOverview') },
+                { id: 'about', label: t('footer.footerEngineeringVision') },
+                { id: 'technologies', label: t('footer.footerTechStack') },
+                { id: 'process', label: t('footer.footerDevelopmentLifecycle') },
+                { id: 'team', label: t('footer.footerLeadershipTeam') },
+                { id: 'locations', label: t('footer.footerOfficeLocations') },
+                { id: 'faq', label: t('footer.footerKnowledgeBase') },
+                { id: 'contact', label: t('footer.footerGetInTouch') },
               ].map((link) => (
                 <li key={link.id}>
                   <button
@@ -121,7 +131,7 @@ export const FooterShowcase: React.FC<FooterShowcaseProps> = ({
                       soundManager.playClick();
                       onNavigate(link.id as SectionId);
                     }}
-                    className="hover:text-white hover:translate-x-1 transition-all cursor-pointer text-left block"
+                    className={`hover:text-white transition-all cursor-pointer text-start block ${dir === 'rtl' ? 'hover:-translate-x-1' : 'hover:translate-x-1'}`}
                   >
                     {link.label}
                   </button>
@@ -134,15 +144,15 @@ export const FooterShowcase: React.FC<FooterShowcaseProps> = ({
           <div className="space-y-4">
             <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest font-bold flex items-center gap-2">
               <Code2 className="w-3.5 h-3.5" />
-              <span>Core Services</span>
+              <span>{t('common.coreServices')}</span>
             </div>
             <ul className="space-y-2.5 text-[#A7A7A7] font-light">
-              <li className="hover:text-white transition-colors cursor-default">• Custom Software Architecture</li>
-              <li className="hover:text-white transition-colors cursor-default">• High-Concurrency API Gateways</li>
-              <li className="hover:text-white transition-colors cursor-default">• Microservices & Cloud Infrastructure</li>
-              <li className="hover:text-white transition-colors cursor-default">• Enterprise UI/UX Design Systems</li>
-              <li className="hover:text-white transition-colors cursor-default">• Cybersecurity & Code Audits</li>
-              <li className="hover:text-white transition-colors cursor-default">• Zero-Downtime CI/CD Pipelines</li>
+              <li className="hover:text-white transition-colors cursor-default">• {t('common.customSoftwareArchitecture')}</li>
+              <li className="hover:text-white transition-colors cursor-default">• {t('common.highConcurrencyApi')}</li>
+              <li className="hover:text-white transition-colors cursor-default">• {t('common.microservicesCloud')}</li>
+              <li className="hover:text-white transition-colors cursor-default">• {t('common.enterpriseUiUx')}</li>
+              <li className="hover:text-white transition-colors cursor-default">• {t('common.cybersecurityAudits')}</li>
+              <li className="hover:text-white transition-colors cursor-default">• {t('common.zeroDowntimeCicd')}</li>
             </ul>
           </div>
 
@@ -150,14 +160,14 @@ export const FooterShowcase: React.FC<FooterShowcaseProps> = ({
           <div className="space-y-4">
             <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest font-bold flex items-center gap-2">
               <Cpu className="w-3.5 h-3.5" />
-              <span>Target Industries</span>
+              <span>{t('footer.targetIndustries')}</span>
             </div>
             <ul className="space-y-2.5 text-[#A7A7A7] font-light">
-              <li className="hover:text-white transition-colors cursor-default">• Fintech & High-Frequency Trading</li>
-              <li className="hover:text-white transition-colors cursor-default">• Food & Hospitality (Cloud Kitchens)</li>
-              <li className="hover:text-white transition-colors cursor-default">• Real Estate & Keyless Access Systems</li>
-              <li className="hover:text-white transition-colors cursor-default">• Global E-Commerce & Retail Engines</li>
-              <li className="hover:text-white transition-colors cursor-default">• Healthcare & Life Sciences SaaS</li>
+              <li className="hover:text-white transition-colors cursor-default">• {t('common.footerFintechTrading')}</li>
+              <li className="hover:text-white transition-colors cursor-default">• {t('common.footerFoodHospitality')}</li>
+              <li className="hover:text-white transition-colors cursor-default">• {t('common.footerRealEstate')}</li>
+              <li className="hover:text-white transition-colors cursor-default">• {t('common.footerEcommerce')}</li>
+              <li className="hover:text-white transition-colors cursor-default">• {t('common.footerHealthcare')}</li>
             </ul>
           </div>
 
@@ -169,18 +179,18 @@ export const FooterShowcase: React.FC<FooterShowcaseProps> = ({
             </div>
             <div className="space-y-3 font-mono text-[#A7A7A7]">
               <div className="space-y-0.5">
-                <div className="text-white font-bold">Alexandria, Egypt</div>
-                <div className="text-[11px] text-[#A7A7A7]">Azarita</div>
+                <div className="text-white font-bold">{t('common.alexandriaEgypt')}</div>
+                <div className="text-[11px] text-[#A7A7A7]">{t('common.azarita')}</div>
               </div>
 
               <div className="pt-2 border-t border-white/10 space-y-1.5">
                 <div className="flex items-center gap-2 text-[11px]">
                   <Mail className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span className="text-white">ceo@quriv.com</span>
+                  <span>{t('footer.ceoEmail')}</span>
                 </div>
                 <div className="flex items-center gap-2 text-[11px]">
                   <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>01157502000</span>
+                  <span>{t('footer.phone')}</span>
                 </div>
               </div>
             </div>
@@ -223,7 +233,7 @@ export const FooterShowcase: React.FC<FooterShowcaseProps> = ({
         {/* BOTTOM COPYRIGHT */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-white/10 text-[11px] font-mono text-[#A7A7A7] text-center sm:text-left">
           <div>
-            © 2026 Quriv Technologies Inc. {t('footer.allRightsReserved')}
+            {t('footer.copyright')} {t('footer.allRightsReserved')}
           </div>
         </div>
       </div>

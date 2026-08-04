@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 // Import translation files directly from src/locales
 import enTranslations from '../locales/en.json';
@@ -13,8 +13,9 @@ export interface TranslationKey {
 interface I18nContextType {
   language: LanguageCode;
   setLanguage: (lang: LanguageCode) => void;
-  t: (key: string) => string;
+  t: (key: string, variables?: Record<string, string | number>) => string;
   dir: 'ltr' | 'rtl';
+  isTransitioning: boolean;
 }
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
@@ -31,9 +32,18 @@ const loadTranslations = (lang: LanguageCode): TranslationKey => {
   return translations[lang] || {};
 };
 
-// Get nested translation value
-const getNestedValue = (obj: TranslationKey, path: string): string => {
-  return path.split('.').reduce((o: any, key) => o?.[key], obj) || path;
+// Get nested translation value with variable interpolation support
+const getNestedValue = (obj: TranslationKey, path: string, variables?: Record<string, string | number>): string => {
+  let value = path.split('.').reduce((o: any, key) => o?.[key], obj) || path;
+  
+  // Replace variables in the format {{variableName}}
+  if (variables && typeof value === 'string') {
+    value = value.replace(/\{\{(\w+)\}\}/g, (match, key) => {
+      return variables[key] !== undefined ? String(variables[key]) : match;
+    });
+  }
+  
+  return value;
 };
 
 interface I18nProviderProps {
@@ -48,6 +58,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
   });
   const [translationsData, setTranslationsData] = useState<TranslationKey>({});
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Load translations on mount and language change (synchronous)
   useEffect(() => {
@@ -56,28 +67,69 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
     setIsLoaded(true);
   }, [language]);
 
-  // Persist language to localStorage
+  // Persist language to localStorage with transition animation
   const setLanguage = (lang: LanguageCode) => {
-    setLanguageState(lang);
-    localStorage.setItem('quriv-language', lang);
+    if (lang === language) return;
+    
+    // Start transition animation
+    setIsTransitioning(true);
+    
+    // Add transition class to body for section-by-section animation
+    document.body.classList.add('language-transition');
+    
+    // Update language after short delay for visual effect
+    setTimeout(() => {
+      setLanguageState(lang);
+      localStorage.setItem('quriv-language', lang);
+      
+      // Remove transition class after animation completes
+      setTimeout(() => {
+        setIsTransitioning(false);
+        document.body.classList.remove('language-transition');
+      }, 800);
+    }, 300);
   };
 
-  // Update document direction
+  // Update document direction and meta tags
   useEffect(() => {
     const dir = language === 'AR' ? 'rtl' : 'ltr';
     document.documentElement.dir = dir;
     document.documentElement.lang = language.toLowerCase();
+    
+    // Update page title and meta tags
+    const metaTranslations = translations[language].meta as any;
+    if (metaTranslations) {
+      document.title = metaTranslations.title || 'Quriv Technologies';
+      
+      // Update meta description
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', metaTranslations.description || '');
+      }
+      
+      // Update Open Graph title
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) {
+        ogTitle.setAttribute('content', metaTranslations.ogTitle || metaTranslations.title || '');
+      }
+      
+      // Update Open Graph description
+      const ogDescription = document.querySelector('meta[property="og:description"]');
+      if (ogDescription) {
+        ogDescription.setAttribute('content', metaTranslations.ogDescription || metaTranslations.description || '');
+      }
+    }
   }, [language]);
 
-  const t = (key: string): string => {
+  const t = (key: string, variables?: Record<string, string | number>): string => {
     if (!isLoaded) return key;
-    return getNestedValue(translationsData, key);
+    return getNestedValue(translationsData, key, variables);
   };
 
   const dir: 'ltr' | 'rtl' = language === 'AR' ? 'rtl' : 'ltr';
 
   return (
-    <I18nContext.Provider value={{ language, setLanguage, t, dir }}>
+    <I18nContext.Provider value={{ language, setLanguage, t, dir, isTransitioning }}>
       {children}
     </I18nContext.Provider>
   );

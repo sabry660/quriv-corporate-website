@@ -14,6 +14,7 @@ import {
   Compass
 } from 'lucide-react';
 import { soundManager } from '../utils/sound';
+import { useI18n } from '../utils/i18n';
 
 export interface LocationItem {
   id: string;
@@ -21,10 +22,10 @@ export interface LocationItem {
   country: string;
   type: string;
   isHeadOffice: boolean;
-  imagePlaceholder: string;
+  image: string;
   description: string;
   coordinates: string;
-  mapPlaceholderText: string;
+  mapText: string;
   workingHours: string;
   contactEmail: string;
   status: string;
@@ -37,10 +38,10 @@ export const LOCATIONS_LIST: LocationItem[] = [
     country: 'Egypt',
     type: 'Head Office',
     isHeadOffice: true,
-    imagePlaceholder: '/public/locations/alexandria-hq.jpg',
-    description: 'Central software architecture engineering headquarters directing global client engagements, technical strategy, and core codebase transfers.',
+    image: '/locations/alexandria-hq.jpg',
+    description: 'centralHqDescription',
     coordinates: '31.2001° N, 29.9187° E',
-    mapPlaceholderText: '[ INTERACTIVE MAP VIEW // ALEXANDRIA HEADQUARTERS COORDINATES ]',
+    mapText: '[ INTERACTIVE MAP VIEW // ALEXANDRIA HEADQUARTERS COORDINATES ]',
     workingHours: 'Sunday - Thursday: 09:00 - 18:00 (UTC+2)',
     contactEmail: 'alexandria@quriv.com',
     status: 'ACTIVE // HEADQUARTERS',
@@ -52,6 +53,7 @@ interface LocationsShowcaseProps {
 }
 
 export const LocationsShowcase: React.FC<LocationsShowcaseProps> = ({ onOpenBookMeeting }) => {
+  const { t } = useI18n();
   const [selectedLocationId, setSelectedLocationId] = useState<string>('hq-alexandria');
   const [activeTab, setActiveTab] = useState<'map' | 'details' | 'contact'>('map');
 
@@ -64,10 +66,10 @@ export const LocationsShowcase: React.FC<LocationsShowcaseProps> = ({ onOpenBook
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono text-[#E6C766] uppercase tracking-widest">
           <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-          <span>GEOGRAPHIC PRESENCE & HEADQUARTERS</span>
+          <span>{t('common.geographicPresence')}</span>
         </div>
         <p className="text-sm text-[#A7A7A7] font-light leading-relaxed">
-          Engineered in Alexandria, Egypt. Operating with a distributed engineering approach for clients and enterprise partners globally.
+          {t('common.engineeredInAlexandria')}
         </p>
       </div>
 
@@ -93,7 +95,7 @@ export const LocationsShowcase: React.FC<LocationsShowcaseProps> = ({ onOpenBook
               <span>{loc.city}, {loc.country}</span>
               {loc.isHeadOffice && (
                 <span className={`px-2 py-0.5 rounded text-[9px] uppercase tracking-widest ${isSelected ? 'bg-black/20 text-black font-extrabold' : 'bg-[#D4AF37]/20 text-[#E6C766]'}`}>
-                  Head Office
+                  {t('common.headOffice')}
                 </span>
               )}
             </button>
@@ -142,12 +144,12 @@ export const LocationsShowcase: React.FC<LocationsShowcaseProps> = ({ onOpenBook
                 {selectedLocation.city}, {selectedLocation.country}
               </div>
               <div className="text-xs font-mono text-[#D4AF37]">
-                {selectedLocation.mapPlaceholderText}
+                {selectedLocation.mapText}
               </div>
             </div>
 
             <div className="relative z-10 text-[11px] font-mono text-[#A7A7A7] bg-black/60 px-4 py-1.5 rounded-full border border-white/10">
-              [ GIS LAT/LONG TELEMETRY // {selectedLocation.coordinates} ]
+              {t('common.gisTelemetry', { coordinates: selectedLocation.coordinates })}
             </div>
           </div>
 
@@ -155,7 +157,7 @@ export const LocationsShowcase: React.FC<LocationsShowcaseProps> = ({ onOpenBook
           <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/10 relative z-10 text-xs font-mono">
             <div className="text-[#A7A7A7] flex items-center gap-1.5">
               <Globe2 className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>FACILITY ID: QURIV-{selectedLocation.id.toUpperCase()}</span>
+              <span>{t('common.facilityId', { id: selectedLocation.id.toUpperCase() })}</span>
             </div>
 
             <button
@@ -165,7 +167,7 @@ export const LocationsShowcase: React.FC<LocationsShowcaseProps> = ({ onOpenBook
               }}
               className="inline-flex items-center gap-2 text-[#E6C766] hover:text-white transition-colors cursor-pointer"
             >
-              <span>Schedule On-Site Consultation</span>
+              <span>{t('common.scheduleOnSiteConsultation')}</span>
               <Navigation className="w-3 h-3" />
             </button>
           </div>
@@ -177,7 +179,7 @@ export const LocationsShowcase: React.FC<LocationsShowcaseProps> = ({ onOpenBook
           <div className="space-y-2 border-b border-white/10 pb-4">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest">
-                OFFICE SPECIFICATION
+                {t('common.officeSpecification')}
               </span>
               <span className="px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[10px] font-mono text-[#E6C766]">
                 {selectedLocation.type}
@@ -188,44 +190,33 @@ export const LocationsShowcase: React.FC<LocationsShowcaseProps> = ({ onOpenBook
               {selectedLocation.city}
             </h3>
             <div className="text-xs font-mono text-[#E6C766]">
-              {selectedLocation.country} {selectedLocation.isHeadOffice ? '(Primary Head Office)' : ''}
+              {selectedLocation.country} {selectedLocation.isHeadOffice ? t('common.primaryHeadOffice') : ''}
             </div>
           </div>
 
-          {/* Office Image Placeholder */}
+          {/* Office Image */}
           <div className="rounded-2xl bg-gradient-to-b from-black/80 to-[#121218] border border-white/10 p-6 text-center space-y-3 relative overflow-hidden group">
-            <div className="w-12 h-12 mx-auto rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37]">
-              <Building2 className="w-6 h-6" />
-            </div>
-
-            <div className="space-y-1">
-              <div className="text-xs font-mono text-[#D4AF37]">
-                [ OFFICE IMAGE PLACEHOLDER ]
-              </div>
-              <div className="text-[11px] font-mono text-[#A7A7A7]">
-                Path: {selectedLocation.imagePlaceholder}
-              </div>
-            </div>
+            <img src={selectedLocation.image} alt={selectedLocation.city} className="w-full h-32 object-cover rounded-xl" />
           </div>
 
           {/* Office Description */}
           <div className="space-y-1">
             <div className="text-xs font-mono text-white uppercase tracking-wider">
-              Office Overview
+              {t('footer.officeOverview')}
             </div>
             <p className="text-xs text-[#A7A7A7] font-light leading-relaxed">
               {selectedLocation.description}
             </p>
           </div>
 
-          {/* Working Hours Placeholder & Contact Placeholder */}
+          {/* Working Hours & Contact */}
           <div className="space-y-3 pt-2">
-            {/* Working Hours Placeholder */}
+            {/* Working Hours */}
             <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start gap-3">
               <Clock className="w-4 h-4 text-[#D4AF37] flex-shrink-0 mt-0.5" />
               <div className="space-y-0.5">
                 <div className="text-[10px] font-mono text-[#A7A7A7] uppercase">
-                  Working Hours Placeholder
+                  {t('footer.workingHours')}
                 </div>
                 <div className="text-xs font-mono text-[#E6C766]">
                   {selectedLocation.workingHours}
@@ -233,12 +224,12 @@ export const LocationsShowcase: React.FC<LocationsShowcaseProps> = ({ onOpenBook
               </div>
             </div>
 
-            {/* Contact Placeholder */}
+            {/* Contact */}
             <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start gap-3">
               <Mail className="w-4 h-4 text-[#D4AF37] flex-shrink-0 mt-0.5" />
               <div className="space-y-0.5">
                 <div className="text-[10px] font-mono text-[#A7A7A7] uppercase">
-                  Contact Placeholder
+                  {t('footer.contactEmail')}
                 </div>
                 <div className="text-xs font-mono text-[#E6C766]">
                   {selectedLocation.contactEmail}
@@ -257,7 +248,7 @@ export const LocationsShowcase: React.FC<LocationsShowcaseProps> = ({ onOpenBook
               onMouseEnter={() => soundManager.playHover()}
               className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#E6C766] to-[#D4AF37] text-black font-bold text-xs font-display uppercase tracking-wider hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all cursor-pointer flex items-center justify-center gap-2"
             >
-              <span>Book Architecture Consultation</span>
+              <span>{t('common.bookArchitectureConsultation')}</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -267,7 +258,7 @@ export const LocationsShowcase: React.FC<LocationsShowcaseProps> = ({ onOpenBook
       {/* Bottom Trust Badge */}
       <div className="flex items-center justify-center gap-2 pt-2 text-xs font-mono text-[#A7A7A7]">
         <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
-        <span>CONFIDENTIAL ARCHITECTURAL CONSULTATIONS DIRECTED FROM HEAD OFFICE</span>
+        <span>{t('common.confidentialConsultations')}</span>
       </div>
     </div>
   );

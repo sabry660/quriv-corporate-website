@@ -71,9 +71,9 @@ export const HeroVideoEngine: React.FC<HeroVideoEngineProps> = ({
             isVideoLoaded ? 'opacity-35' : 'opacity-0'
           }`}
         >
-          {/* Local Placeholder File Path (Can be replaced with zero code changes) */}
-          <source src="/videos/hero-placeholder.mp4" type="video/mp4" />
-          <source src="/videos/hero-placeholder.webm" type="video/webm" />
+          {/* Local Video Files */}
+          <source src="/videos/hero.mp4" type="video/mp4" />
+          <source src="/videos/hero.webm" type="video/webm" />
           
           {/* Online Cinematic Fallbacks */}
           <source

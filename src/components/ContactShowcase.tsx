@@ -31,9 +31,9 @@ import { soundManager } from '../utils/sound';
 import { useI18n } from '../utils/i18n.tsx';
 
 export interface ContactInfoStructure {
-  phonePlaceholder: string;
-  emailPlaceholder: string;
-  addressPlaceholder: string;
+  phone: string;
+  email: string;
+  address: string;
   responseTime: string;
   socials: {
     name: string;
@@ -43,9 +43,9 @@ export interface ContactInfoStructure {
 }
 
 export const CONTACT_INFO_DATA: ContactInfoStructure = {
-  phonePlaceholder: '01157502000',
-  emailPlaceholder: 'ceo@quriv.com',
-  addressPlaceholder: 'Azarita, Alexandria, Egypt',
+  phone: '01157502000',
+  email: 'ceo@quriv.com',
+  address: 'Azarita, Alexandria, Egypt',
   responseTime: '< 2 Hours Guaranteed',
   socials: [
     { name: 'Facebook', url: 'https://www.facebook.com/p/Quriv-Technologies-100093578880006/', icon: 'facebook' },
@@ -56,28 +56,28 @@ export const CONTACT_INFO_DATA: ContactInfoStructure = {
 };
 
 const INDUSTRIES_LIST = [
-  'Fintech & Financial Systems',
-  'Food & Hospitality (Cloud Kitchens)',
-  'Real Estate & Luxury Hospitality',
-  'E-Commerce & Global Retail',
-  'Healthcare & Life Sciences',
-  'Enterprise Software & SaaS',
-  'Other Custom Architectural Need',
+  'industryFintech',
+  'industryFoodHospitality',
+  'industryRealEstate',
+  'industryEcommerce',
+  'industryHealthcare',
+  'enterpriseSoftware',
+  'industryOther',
 ];
 
 const TIME_SLOTS = [
-  'Morning (09:00 - 12:00 UTC+2)',
-  'Afternoon (12:00 - 15:00 UTC+2)',
-  'Evening (15:00 - 18:00 UTC+2)',
-  'Night (18:00 - 21:00 UTC+2)',
+  'morning',
+  'afternoon',
+  'evening',
+  'night',
 ];
 
 const BUDGET_RANGES = [
-  'Under $10,000 USD',
-  '$10,000 - $25,000 USD',
-  '$25,000 - $50,000 USD',
-  '$50,000 - $100,000 USD',
-  '$100,000+ USD',
+  'budgetUnder10k',
+  'budget10kTo25k',
+  'budget25kTo50k',
+  'budget50kTo100k',
+  'budget100kPlus',
 ];
 
 interface ContactShowcaseProps {
@@ -126,13 +126,13 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
     // Basic Validation
     if (!bookingData.fullName.trim() || !bookingData.company.trim() || !bookingData.email.trim() || !bookingData.phone.trim()) {
       setBookingStatus('error');
-      setBookingErrorMessage('Please complete all required fields (Full Name, Company, Corporate Email, Phone).');
+      setBookingErrorMessage(t('common.completeRequiredFields'));
       return;
     }
 
     if (!bookingData.email.includes('@') || !bookingData.email.includes('.')) {
       setBookingStatus('error');
-      setBookingErrorMessage('Please enter a valid corporate email address.');
+      setBookingErrorMessage(t('common.validEmailRequired'));
       return;
     }
 
@@ -216,16 +216,16 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
     <div className="space-y-10 text-white relative z-10" dir={dir}>
       {/* SECTION HEADER CTA BAR */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 p-6 sm:p-8 rounded-3xl bg-black/60 border border-[#D4AF37]/40 backdrop-blur-2xl shadow-2xl gold-glow">
-        <div className="space-y-2 text-center md:text-left">
+        <div className="space-y-2 text-center md:text-start">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono text-[#E6C766] uppercase tracking-widest">
             <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-            <span>ARCHITECTURAL CONSULTATION</span>
+            <span>{t('common.architecturalConsultation')}</span>
           </div>
           <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-white">
-            Let's Build Something Great Together
+            {t('common.letsBuildSomethingGreat')}
           </h3>
           <p className="text-xs sm:text-sm text-[#A7A7A7] font-light max-w-xl">
-            Ready to convert technical complexity into clean, scalable enterprise software? Book an architectural session or establish your client portal access.
+            {t('common.readyToConvertComplexity')}
           </p>
         </div>
 
@@ -240,7 +240,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
             className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-[#D4AF37] text-xs font-mono text-[#E6C766] hover:text-white transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg"
           >
             <UserPlus className="w-4 h-4 text-[#D4AF37]" />
-            <span>Create Account</span>
+            <span>{t('contact.createAccount')}</span>
           </button>
         </div>
       </div>
@@ -251,7 +251,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
         <div className="lg:col-span-5 rounded-3xl bg-black/60 border border-white/10 backdrop-blur-2xl p-6 sm:p-8 space-y-8 shadow-2xl">
           <div className="space-y-2 border-b border-white/10 pb-6">
             <span className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest font-bold">
-              // DIRECT TELEMETRY
+              // {t('common.directTelemetry')}
             </span>
             <h4 className="text-xl font-bold font-display text-white">
               {t('contact.contactInfo')}
@@ -264,49 +264,70 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
           {/* CONTACT DETAILS LIST */}
           <div className="space-y-5">
             {/* Phone */}
-            <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#D4AF37]/50 transition-colors group">
-              <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+            <motion.div
+              whileHover={{ scale: 1.02, x: dir === 'rtl' ? -5 : 5 }}
+              className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#D4AF37]/50 transition-colors group cursor-pointer"
+            >
+              <motion.div
+                className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center flex-shrink-0"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ duration: 0.2 }}
+              >
                 <Phone className="w-5 h-5" />
-              </div>
+              </motion.div>
               <div className="space-y-1">
                 <div className="text-[10px] font-mono text-[#A7A7A7] uppercase tracking-wider">
                   {t('contact.phoneLabel')}
                 </div>
                 <div className="text-sm font-mono text-white font-semibold">
-                  {CONTACT_INFO_DATA.phonePlaceholder}
+                  {CONTACT_INFO_DATA.phone}
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Email */}
-            <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#D4AF37]/50 transition-colors group">
-              <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+            <motion.div
+              whileHover={{ scale: 1.02, x: dir === 'rtl' ? -5 : 5 }}
+              className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#D4AF37]/50 transition-colors group cursor-pointer"
+            >
+              <motion.div
+                className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center flex-shrink-0"
+                whileHover={{ scale: 1.1, rotate: -5 }}
+                transition={{ duration: 0.2 }}
+              >
                 <Mail className="w-5 h-5" />
-              </div>
+              </motion.div>
               <div className="space-y-1">
                 <div className="text-[10px] font-mono text-[#A7A7A7] uppercase tracking-wider">
                   {t('contact.emailLabel')}
                 </div>
                 <div className="text-sm font-mono text-white font-semibold">
-                  {CONTACT_INFO_DATA.emailPlaceholder}
+                  {CONTACT_INFO_DATA.email}
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Address */}
-            <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#D4AF37]/50 transition-colors group">
-              <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+            <motion.div
+              whileHover={{ scale: 1.02, x: dir === 'rtl' ? -5 : 5 }}
+              className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#D4AF37]/50 transition-colors group cursor-pointer"
+            >
+              <motion.div
+                className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center flex-shrink-0"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ duration: 0.2 }}
+              >
                 <MapPin className="w-5 h-5" />
-              </div>
+              </motion.div>
               <div className="space-y-1">
                 <div className="text-[10px] font-mono text-[#A7A7A7] uppercase tracking-wider">
                   {t('contact.addressLabel')}
                 </div>
                 <div className="text-xs font-mono text-white font-semibold leading-relaxed">
-                  {CONTACT_INFO_DATA.addressPlaceholder}
+                  {CONTACT_INFO_DATA.address}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* SOCIAL MEDIA LINKS */}
@@ -351,10 +372,10 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
               </span>
             </div>
             <h4 className="text-2xl font-bold font-display text-white">
-              {t('contact.bookMeeting')}
+              {t('common.bookMeetingFormTitle')}
             </h4>
             <p className="text-xs text-[#A7A7A7] font-light">
-              Fill out your project specifications to reserve a 30-minute 1-on-1 session with our senior software architects.
+              {t('common.bookMeetingFormDescription')}
             </p>
           </div>
 
@@ -371,24 +392,24 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
 
               <div className="space-y-2">
                 <h5 className="text-2xl font-bold font-display text-white">
-                  Meeting Inquiry Transmitted!
+                  {t('bookMeeting.meetingInquiryTransmitted')}
                 </h5>
                 <p className="text-xs text-[#C0C0C0] max-w-md mx-auto leading-relaxed">
-                  Thank you, <span className="text-[#E6C766] font-semibold">{bookingData.fullName}</span>. Your consultation request for <span className="text-white font-semibold">{bookingData.company}</span> has been assigned to a senior software architect.
+                  {t('bookMeeting.thankYouForRequest')} <span className="text-[#E6C766] font-semibold">{bookingData.fullName}</span>. {t('bookMeeting.yourConsultationRequest')} <span className="text-white font-semibold">{bookingData.company}</span> {t('bookMeeting.hasBeenAssigned')}
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 max-w-sm mx-auto text-left font-mono text-xs space-y-2">
+              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 max-w-sm mx-auto text-start font-mono text-xs space-y-2">
                 <div className="flex justify-between text-[#A7A7A7]">
-                  <span>Preferred Date:</span>
-                  <span className="text-white">{bookingData.preferredDate || 'Earliest Slot'}</span>
+                  <span>{t('bookMeeting.preferredDate')}</span>
+                  <span className="text-white">{bookingData.preferredDate || t('bookMeeting.earliestSlot')}</span>
                 </div>
                 <div className="flex justify-between text-[#A7A7A7]">
-                  <span>Preferred Time:</span>
+                  <span>{t('bookMeeting.preferredTime')}</span>
                   <span className="text-white">{bookingData.preferredTime}</span>
                 </div>
                 <div className="flex justify-between text-[#A7A7A7]">
-                  <span>Industry:</span>
+                  <span>{t('bookMeeting.industry')}</span>
                   <span className="text-[#E6C766]">{bookingData.industry}</span>
                 </div>
               </div>
@@ -397,7 +418,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
                 onClick={handleResetBooking}
                 className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-mono text-white transition-all cursor-pointer"
               >
-                Submit Another Request
+                {t('bookMeeting.submitAnotherRequest')}
               </button>
             </motion.div>
           ) : (
@@ -415,7 +436,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label htmlFor="fullName" className="block text-xs font-mono text-[#A7A7A7] uppercase">
-                    Full Name <span className="text-[#D4AF37]">*</span>
+                    {t('common.fullNameLabel')} <span className="text-[#D4AF37]">*</span>
                   </label>
                   <div className="relative">
                     <User className="w-4 h-4 text-[#D4AF37] absolute left-3.5 top-3.5" />
@@ -432,7 +453,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
 
                 <div className="space-y-1.5">
                   <label htmlFor="company" className="block text-xs font-mono text-[#A7A7A7] uppercase">
-                    Company <span className="text-[#D4AF37]">*</span>
+                    {t('common.companyLabel')} <span className="text-[#D4AF37]">*</span>
                   </label>
                   <div className="relative">
                     <Building className="w-4 h-4 text-[#D4AF37] absolute left-3.5 top-3.5" />
@@ -452,7 +473,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label htmlFor="email" className="block text-xs font-mono text-[#A7A7A7] uppercase">
-                    Corporate Email <span className="text-[#D4AF37]">*</span>
+                    {t('common.emailLabel')} <span className="text-[#D4AF37]">*</span>
                   </label>
                   <div className="relative">
                     <Mail className="w-4 h-4 text-[#D4AF37] absolute left-3.5 top-3.5" />
@@ -469,7 +490,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
 
                 <div className="space-y-1.5">
                   <label htmlFor="phone" className="block text-xs font-mono text-[#A7A7A7] uppercase">
-                    Phone <span className="text-[#D4AF37]">*</span>
+                    {t('common.phoneLabel')} <span className="text-[#D4AF37]">*</span>
                   </label>
                   <div className="relative">
                     <Phone className="w-4 h-4 text-[#D4AF37] absolute left-3.5 top-3.5" />
@@ -489,7 +510,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label htmlFor="industry" className="block text-xs font-mono text-[#A7A7A7] uppercase">
-                    Industry
+                    {t('bookMeeting.selectIndustry')}
                   </label>
                   <select
                     id="industry"
@@ -497,9 +518,10 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
                     onChange={(e) => setBookingData({ ...bookingData, industry: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all cursor-pointer"
                   >
+                    <option value="" className="bg-[#121218] text-[#A7A7A7]">{t('bookMeeting.selectIndustry')}</option>
                     {INDUSTRIES_LIST.map((ind) => (
                       <option key={ind} value={ind} className="bg-[#121218] text-white">
-                        {ind}
+                        {t(`common.${ind}`)}
                       </option>
                     ))}
                   </select>
@@ -507,7 +529,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
 
                 <div className="space-y-1.5">
                   <label htmlFor="projectBudget" className="block text-xs font-mono text-[#A7A7A7] uppercase">
-                    Project Budget (Optional)
+                    {t('bookMeeting.projectBudgetOptional')}
                   </label>
                   <select
                     id="projectBudget"
@@ -515,10 +537,10 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
                     onChange={(e) => setBookingData({ ...bookingData, projectBudget: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all cursor-pointer"
                   >
-                    <option value="" className="bg-[#121218] text-[#A7A7A7]">Select Estimated Budget Scope</option>
-                    {BUDGET_RANGES.map((b) => (
-                      <option key={b} value={b} className="bg-[#121218] text-white">
-                        {b}
+                    <option value="" className="bg-[#121218] text-[#A7A7A7]">{t('bookMeeting.selectBudget')}</option>
+                    {BUDGET_RANGES.map((budget) => (
+                      <option key={budget} value={budget} className="bg-[#121218] text-white">
+                        {t(`common.${budget}`)}
                       </option>
                     ))}
                   </select>
@@ -529,7 +551,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label htmlFor="preferredDate" className="block text-xs font-mono text-[#A7A7A7] uppercase">
-                    Preferred Meeting Date
+                    {t('bookMeeting.preferredDate')}
                   </label>
                   <div className="relative">
                     <Calendar className="w-4 h-4 text-[#D4AF37] absolute left-3.5 top-3.5 pointer-events-none" />
@@ -545,7 +567,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
 
                 <div className="space-y-1.5">
                   <label htmlFor="preferredTime" className="block text-xs font-mono text-[#A7A7A7] uppercase">
-                    Preferred Meeting Time
+                    {t('bookMeeting.preferredTime')}
                   </label>
                   <select
                     id="preferredTime"
@@ -553,9 +575,9 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
                     onChange={(e) => setBookingData({ ...bookingData, preferredTime: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all cursor-pointer"
                   >
-                    {TIME_SLOTS.map((t) => (
-                      <option key={t} value={t} className="bg-[#121218] text-white">
-                        {t}
+                    {TIME_SLOTS.map((slot) => (
+                      <option key={slot} value={slot} className="bg-[#121218] text-white">
+                        {t(`common.${slot}Slot`)}
                       </option>
                     ))}
                   </select>
@@ -565,7 +587,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
               {/* MESSAGE AREA */}
               <div className="space-y-1.5">
                 <label htmlFor="message" className="block text-xs font-mono text-[#A7A7A7] uppercase">
-                  Message / Architecture Objectives
+                  {t('bookMeeting.messageLabel')}
                 </label>
                 <textarea
                   id="message"
@@ -625,16 +647,16 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
               </button>
 
               {/* Modal Header */}
-              <div className="space-y-1">
+              <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[10px] font-mono text-[#E6C766] uppercase tracking-widest">
                   <Sparkles className="w-3 h-3 text-[#D4AF37]" />
-                  <span>CLIENT PORTAL ACCESS</span>
+                  <span>{t('common.clientPortalAccess')}</span>
                 </div>
-                <h3 id="account-modal-title" className="text-2xl font-bold font-display text-white">
-                  Create Account
+                <h3 className="text-2xl font-bold font-display text-white">
+                  {t('contact.createAccount')}
                 </h3>
                 <p className="text-xs text-[#A7A7A7] font-light">
-                  Establish client portal credentials to manage active architectural projects, review codebase repositories, and view telemetry metrics.
+                  {t('common.establishClientPortal')}
                 </p>
               </div>
 
@@ -643,21 +665,21 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
                 <div className="py-8 text-center space-y-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/30 p-6">
                   <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
                   <div className="space-y-1">
-                    <h4 className="text-xl font-bold font-display text-white">Account Created!</h4>
+                    <h4 className="text-xl font-bold font-display text-white">{t('common.accountCreated')}</h4>
                     <p className="text-xs text-[#C0C0C0]">
-                      Welcome to Quriv Client Portal, <span className="text-[#E6C766] font-semibold">{accountData.name}</span>.
+                      {t('common.welcomeToClientPortal')}, <span className="text-[#E6C766] font-semibold">{accountData.name}</span>.
                     </p>
                   </div>
                   <button
                     onClick={handleCloseAccountModal}
                     className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#E6C766] text-black font-bold text-xs uppercase tracking-wider cursor-pointer"
                   >
-                    Done
+                    {t('common.done')}
                   </button>
                 </div>
               ) : (
                 /* FORM IN MODAL */
-                <form onSubmit={handleAccountSubmit} className="space-y-4 text-left">
+                <form onSubmit={handleAccountSubmit} className="space-y-4 text-start">
                   {accountStatus === 'error' && accountErrorMessage && (
                     <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center gap-2">
                       <AlertCircle className="w-4 h-4 flex-shrink-0" />
@@ -668,21 +690,21 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
                   {/* Name & Company */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">Name *</label>
+                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">{t('common.fullNameLabel')} *</label>
                       <input
                         type="text"
                         required
-                        placeholder="Full Name"
+                        placeholder={t('common.placeholderFullName')}
                         value={accountData.name}
                         onChange={(e) => setAccountData({ ...accountData, name: e.target.value })}
                         className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
                       />
                     </div>
-                    <div className="space-y-1">
-                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">Company</label>
+                    <div className="space-y-1.5">
+                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">{t('common.companyLabel')}</label>
                       <input
                         type="text"
-                        placeholder="Organization Name"
+                        placeholder={t('common.placeholderOrganizationName')}
                         value={accountData.company}
                         onChange={(e) => setAccountData({ ...accountData, company: e.target.value })}
                         className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
@@ -690,24 +712,23 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
                     </div>
                   </div>
 
-                  {/* Email & Phone */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">Email *</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">{t('common.emailLabel')}</label>
                       <input
                         type="email"
                         required
-                        placeholder="email@company.com"
+                        placeholder={t('common.placeholderEmail')}
                         value={accountData.email}
                         onChange={(e) => setAccountData({ ...accountData, email: e.target.value })}
                         className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
                       />
                     </div>
-                    <div className="space-y-1">
-                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">Phone</label>
+                    <div className="space-y-1.5">
+                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">{t('common.phoneLabel')}</label>
                       <input
                         type="tel"
-                        placeholder="+1 (555) 000-0000"
+                        placeholder={t('common.placeholderPhone')}
                         value={accountData.phone}
                         onChange={(e) => setAccountData({ ...accountData, phone: e.target.value })}
                         className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
@@ -715,15 +736,14 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
                     </div>
                   </div>
 
-                  {/* Password & Confirm Password */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">Password *</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">{t('common.passwordLabel')}</label>
                       <div className="relative">
                         <input
                           type={showPassword ? 'text' : 'password'}
                           required
-                          placeholder="••••••••"
+                          placeholder={t('common.placeholderPassword')}
                           value={accountData.password}
                           onChange={(e) => setAccountData({ ...accountData, password: e.target.value })}
                           className="w-full pl-3.5 pr-8 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
@@ -731,19 +751,18 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-2.5 top-3 text-[#A7A7A7] hover:text-white"
+                          className="absolute right-3 top-3 text-[#A7A7A7] hover:text-white transition-colors"
                         >
-                          {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                         </button>
                       </div>
                     </div>
-
-                    <div className="space-y-1">
-                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">Confirm Password *</label>
+                    <div className="space-y-1.5">
+                      <label className="block text-[11px] font-mono text-[#A7A7A7] uppercase">{t('common.confirmPasswordLabel')}</label>
                       <input
                         type={showPassword ? 'text' : 'password'}
                         required
-                        placeholder="••••••••"
+                        placeholder={t('common.placeholderPassword')}
                         value={accountData.confirmPassword}
                         onChange={(e) => setAccountData({ ...accountData, confirmPassword: e.target.value })}
                         className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
@@ -763,7 +782,7 @@ export const ContactShowcase: React.FC<ContactShowcaseProps> = ({ onOpenBookMeet
                           <span>Creating Account...</span>
                         </>
                       ) : (
-                        <span>Register Client Portal Account</span>
+                        <span>{t('common.registerClientPortalAccount')}</span>
                       )}
                     </button>
                   </div>
